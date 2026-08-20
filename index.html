@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>BloomSense</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="card">
+
+    <!-- LOGIN / SIGN UP TABS -->
+    <div class="tabs">
+
+      <button
+        type="button"
+        id="loginTab"
+        class="tab active"
+        onclick="showForm('login')">
+        Login
+      </button>
+
+      <button
+        type="button"
+        id="signupTab"
+        class="tab"
+        onclick="showForm('signup')">
+        Sign Up
+      </button>
+
+    </div>
+
+
+    <!-- BLOOMSENSE LOGO -->
+    <div class="logoBox">
+      <img src="logoo.png.png" alt="BloomSense">
+    </div>
+
+
+    <!-- LOGIN FORM -->
+    <section id="loginForm">
+
+      <h1>Welcome back!</h1>
+
+      <p>
+        Login to continue your BloomSense journey.
+      </p>
+
+      <div class="form">
+
+        <input
+          type="email"
+          id="loginEmail"
+          placeholder="Email Address">
+
+        <input
+          type="password"
+          id="loginPassword"
+          placeholder="Password">
+
+        <div class="forgot">
+          Forgot Password?
+        </div>
+
+        <button
+          type="button"
+          class="mainBtn"
+          onclick="loginUser()">
+          Login
+        </button>
+
+        <div class="or">
+          <span>or</span>
+        </div>
+
+        <button
+          type="button"
+          class="guestBtn"
+          onclick="goToHome()">
+          Continue as Guest
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- SIGN UP FORM -->
+    <section id="signupForm" class="hidden">
+
+      <h1>Create your account</h1>
+
+      <p>
+        Sign up to save your favorites, manage orders
+        and get a personalized experience.
+      </p>
+
+      <div class="form">
+
+        <input
+          type="text"
+          id="signupName"
+          placeholder="Full Name">
+
+        <input
+          type="email"
+          id="signupEmail"
+          placeholder="Email Address">
+
+        <input
+          type="password"
+          id="signupPassword"
+          placeholder="Password">
+
+        <input
+          type="password"
+          id="confirmPassword"
+          placeholder="Confirm Password">
+
+        <button
+          type="button"
+          class="mainBtn"
+          onclick="signupUser()">
+          Sign Up
+        </button>
+
+        <div class="or">
+          <span>or</span>
+        </div>
+
+        <button
+          type="button"
+          class="guestBtn"
+          onclick="goToHome()">
+          Continue as Guest
+        </button>
+
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>

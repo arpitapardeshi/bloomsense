@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About BloomSense</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      /* Soft & Vibrant Pink Shades Palette */
+      --pink-baby: #FFD1DC;
+      --pink-soft: #FDE8ED;
+      --pink-quote-bg: #FFF0F5;
+      --pink-quote-border: #F7C1D3;
+      --pink-blush: #F7A8C4;
+      --pink-primary: #D24D80;
+      --pink-deep: #A33B63;
+      --pink-border: #F3C6D7;
+      --bg-cream: #FAF6F0;
+      --text-dark: #3A2E33;
+      --text-muted: #5C4B52;
+
+      /* Softer Muted Rose Palette for Subtle Cutout Borders */
+      --border-muted-rose: #C88A9E;
+      --border-soft-rose: #E0B2C1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--text-dark);
+      background-color: var(--bg-cream);
+      line-height: 1.8;
+      font-size: 1.15rem;
+    }
+
+    /* Fixed Clean Header & Navbar Alignment */
+    .header-bar {
+      width: 100%;
+      background: var(--bg-cream);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(243, 198, 215, 0.4);
+    }
+
+    .navbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+
+    /* Logo Space Reserved */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-placeholder {
+      width: 180px;
+      height: 50px;
+      border: 1px dashed var(--pink-blush);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--pink-deep);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.85rem;
+      background-color: #ffffff;
+    }
+
+    .logo-container img {
+      max-height: 100px;
+      width: auto;
+      object-fit: contain;
+      display:block;
+    }
+
+    .nav-right-group {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2.2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      text-decoration: none;
+      color: #332B2E;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      position: relative;
+      padding-bottom: 6px;
+    }
+
+    /* Active Highlighted State */
+    .nav-links a.active {
+      color: var(--pink-primary);
+      font-weight: 600;
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2.5px;
+      background-color: var(--pink-primary);
+      border-radius: 2px;
+    }
+
+    .nav-links a:hover {
+      color: var(--pink-primary);
+    }
+
+    /* Circular Cart Button */
+    .cart-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1.5px solid var(--pink-primary);
+      color: var(--pink-primary);
+      text-decoration: none;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .cart-btn:hover {
+      background-color: var(--pink-soft);
+      transform: scale(1.05);
+    }
+
+    /* Main Container Layout */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    /* Section Wrapper Styling */
+    .vertical-section {
+      background: #FFFFFF;
+      border: 1px solid var(--pink-border);
+      border-radius: 24px;
+      padding: 3.5rem 3rem;
+      margin-bottom: 3.5rem;
+      box-shadow: 0 10px 30px rgba(210, 77, 128, 0.05);
+      position: relative;
+    }
+
+    /* Two Column Layout inside Sections */
+    .section-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    /* Section Marker Header */
+    .section-tag {
+      text-align: center;
+      color: var(--pink-primary);
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Header Typography */
+    .main-header {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--pink-primary);
+      text-align: center;
+      font-size: 3.4rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 0.8rem;
+    }
+
+    .main-header.left-align {
+      text-align: left;
+    }
+
+    .serif-subheader {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--pink-deep);
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .serif-subheader.left-align {
+      text-align: left;
+    }
+
+    p {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      margin-bottom: 1.2rem;
+    }
+
+    /* Quote Box Styling */
+    .quote-box {
+      background-color: var(--pink-quote-bg);
+      border-left: 4px solid var(--pink-quote-border);
+      border-radius: 12px;
+      padding: 1.2rem 1.8rem;
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--pink-deep);
+      font-size: 1.4rem;
+      margin: 1.5rem 0;
+    }
+
+    /* --- IMAGE CUTOUTS --- */
+
+    /* Mask Up Effect (About BloomSense) */
+    .masked-hero-img {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+      -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+      mask-image: radial-gradient(circle, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+      border-radius: 30px;
+    }
+
+    /* Asymmetrical Cutout (Our Story) */
+    .border-cutout-img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      border-radius: 40px 10px 40px 10px;
+      border: 8px double var(--pink-border);
+      outline: 2px solid var(--pink-blush);
+      box-shadow: 0 12px 25px rgba(210, 77, 128, 0.12);
+    }
+
+    /* UPDATED: Daisy Cutout with Softer, Muted Rose Border */
+    .daisy-cutout-img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      border-radius: 40px 10px 40px 10px;
+      border: 8px double var(--border-soft-rose);
+      outline: 1.5px solid var(--border-muted-rose);
+      box-shadow: 0 10px 20px rgba(200, 138, 158, 0.12);
+    }
+
+    /* Arch Shape Cutout (What is BloomSense) */
+    .arch-cutout-img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      border-radius: 180px 180px 20px 20px;
+      border: 3px solid var(--pink-soft);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Feature Cards Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+
+    .feature-card {
+      background-color: var(--pink-soft);
+      border: 1px solid var(--pink-border);
+      border-radius: 16px;
+      padding: 1.2rem;
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      background: #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--pink-primary);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .feature-text h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--pink-deep);
+      margin-bottom: 0.2rem;
+    }
+
+    .feature-text p {
+      font-size: 1rem;
+      margin-bottom: 0;
+    }
+
+    /* Feelings Icon Row */
+    .feelings-row {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1.5rem 0 0 0;
+      padding: 1.2rem;
+      background: var(--pink-soft);
+      border-radius: 16px;
+    }
+
+    .feeling-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .feeling-item i {
+      font-size: 1.5rem;
+      color: var(--pink-primary);
+    }
+
+    .feeling-item span {
+      font-weight: 500;
+      font-size: 1rem;
+      color: var(--pink-deep);
+    }
+
+    /* Flower Bullet Points */
+    .flower-list {
+      list-style: none;
+      margin: 1.5rem 0;
+    }
+
+    .flower-list li {
+      position: relative;
+      padding-left: 2rem;
+      color: var(--text-muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .flower-list li::before {
+      content: "🌸";
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 1rem;
+    }
+
+    /* Our Mission Banner */
+    .mission-section {
+      background: linear-gradient(135deg, var(--pink-soft) 0%, #FFFFFF 100%);
+      border: 2px solid var(--pink-border);
+      text-align: center;
+    }
+
+    .mission-statement {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      color: var(--pink-deep);
+      line-height: 1.3;
+      margin: 1.5rem 0;
+      font-weight: 600;
+    }
+
+    /* Mobile Responsive Adjustments */
+    @media (max-width: 850px) {
+      .navbar { flex-direction: column; gap: 1.2rem; text-align: center; }
+      .nav-right-group { flex-direction: column; gap: 1rem; }
+      .section-grid { grid-template-columns: 1fr; }
+      .main-header { font-size: 2.5rem; text-align: center !important; }
+      .serif-subheader { font-size: 1.4rem; text-align: center !important; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .vertical-section { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Header Bar -->
+  <header class="header-bar">
+    <nav class="navbar">
+      <!-- Reserved Space for Logo -->
+      <a href="home.html" class="logo-container">
+        <img src="logoo.png.png" alt="bloomsense logo">
+      </a>
+
+      <div class="nav-right-group">
+        <ul class="nav-links">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="birthflower.html">Birth Flower</a></li>
+          <li><a href="#" class="active">About BloomSense</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <a href="#" class="cart-btn" aria-label="Cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- 1. ABOUT BLOOMSENSE -->
+    <section class="vertical-section">
+      <div class="section-tag">🌸 🌸 🌸</div>
+      <div class="section-grid">
+        <div class="left-content">
+          <h1 class="main-header left-align">About BloomSense</h1>
+          <h2 class="serif-subheader left-align">Every Flower Has A Meaning.</h2>
+          
+          <p>BloomSense is a flower discovery and gifting platform created around one simple thought — what if the flower we give could say what we are unable to say ourselves?</p>
+          <p>Flowers have always been more than beautiful gifts. They can carry emotions, memories, affection and messages. BloomSense brings that meaning into the process of choosing, sending and receiving flowers.</p>
+          
+          <div class="quote-box">
+            "Don't just send a flower. Send what you mean."
+          </div>
+
+          <p>Discover the meaning behind flowers, find one that matches a person or occasion, understand a flower you've received, and make every floral gesture a little more personal.</p>
+        </div>
+
+        <div>
+          <img src="hero-bouquets.jpeg" alt="BloomSense Flowers Collection" class="masked-hero-img">
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. OUR STORY -->
+    <section class="vertical-section">
+      <div class="section-tag">🌸 🌸 🌸</div>
+      <div class="section-grid">
+        <div class="left-content">
+          <h2 class="main-header left-align">Our Story</h2>
+          
+          <p>BloomSense began with a simple observation.</p>
+          <p>The flower-gifting world is growing, and flowers are becoming an increasingly popular way to celebrate relationships, occasions and emotions. But while choosing a flower may be easy, choosing the right flower can be surprisingly difficult.</p>
+          <p>We often know what we want to express — love, gratitude, admiration, comfort or affection — but we don't always know how to put those feelings into words.</p>
+
+          <div class="quote-box">
+            "What if we could put meaning back into the flowers we give?"
+          </div>
+
+          <p>BloomSense was created from that thought. Instead of choosing a flower simply because it looks beautiful, we wanted people to be able to choose one because it represents something about the person receiving it.</p>
+        </div>
+
+        <div>
+          <img src="sunflowers.jpeg" alt="Our Story Sunflowers" class="border-cutout-img">
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. WHAT IS BLOOMSENSE? -->
+    <section class="vertical-section">
+      <div class="section-tag">🌸 🌸 🌸</div>
+      <div class="section-grid">
+        <div class="left-content">
+          <h2 class="main-header left-align">What is BloomSense?</h2>
+          <p>With BloomSense, you can easily discover and express emotions through these features:</p>
+
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="feature-icon"><i class="fa-solid fa-gift"></i></div>
+              <div class="feature-text">
+                <h4>Buy My Flower</h4>
+                <p>Explore flowers, discover their meanings and choose the way you want to send them.</p>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+              <div class="feature-text">
+                <h4>Help Me Find My Flower</h4>
+                <p>Answer a few simple questions to discover a bouquet that feels right.</p>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon"><i class="fa-regular fa-envelope"></i></div>
+              <div class="feature-text">
+                <h4>Received A Flower</h4>
+                <p>Enter the flower you received to discover what it represents.</p>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon"><i class="fa-regular fa-calendar-days"></i></div>
+              <div class="feature-text">
+                <h4>Birth Flower</h4>
+                <p>Select a month to discover its associated birth flower symbolism.</p>
+              </div>
+            </div>
+          </div>
+
+          <p>BloomSense brings technology, flowers and personalization together to make giving and receiving flowers more meaningful.</p>
+        </div>
+
+        <div>
+          <img src="pink-rose.jpeg" alt="What is BloomSense Bouquet" class="arch-cutout-img">
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. HOW FLOWER MEANINGS WORK -->
+    <section class="vertical-section">
+      <div class="section-tag">🌸 🌸 🌸</div>
+      <h2 class="main-header">How Flower Meanings Work</h2>
+      
+      <div class="section-grid" style="margin-top: 1.5rem;">
+        <div class="left-content">
+          <p>Flowers have been associated with emotions and symbolism for centuries. Different flowers, colours and traditions have developed their own meanings, allowing flowers to communicate feelings without words.</p>
+          <p>BloomSense takes inspiration from the tradition of floriography, or the language of flowers, particularly the Victorian-era tradition in which flowers were used to express messages and emotions.</p>
+
+          <p style="color: var(--pink-primary); font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem;">A flower can represent feelings such as:</p>
+
+          <div class="feelings-row">
+            <div class="feeling-item"><i class="fa-regular fa-heart"></i><span>Love</span></div>
+            <div class="feeling-item"><i class="fa-solid fa-hands-holding"></i><span>Gratitude</span></div>
+            <div class="feeling-item"><i class="fa-regular fa-star"></i><span>Admiration</span></div>
+            <div class="feeling-item"><i class="fa-solid fa-people-group"></i><span>Friendship</span></div>
+            <div class="feeling-item"><i class="fa-regular fa-face-smile"></i><span>Comfort</span></div>
+            <div class="feeling-item"><i class="fa-regular fa-sun"></i><span>Hope</span></div>
+          </div>
+        </div>
+
+        <div>
+          <!-- Daisy Image with Soft Muted Rose Border -->
+          <img src="daisy.jpeg" alt="Daisies Flower Symbolism" class="daisy-cutout-img">
+        </div>
+      </div>
+
+      <p style="margin-top: 1.5rem;">BloomSense uses these symbolic associations as inspiration to help people make more thoughtful and personal choices when giving flowers.</p>
+    </section>
+
+    <!-- 5. WHY WE CREATED BLOOMSENSE -->
+    <section class="vertical-section">
+      <div class="section-tag">🌸 🌸 🌸</div>
+      <h2 class="main-header">Why We Created BloomSense</h2>
+      
+      <p>We created BloomSense because choosing a flower should not have to be a guessing game.</p>
+      <p>People often want to give flowers to someone they love, but they may not know:</p>
+
+      <ul class="flower-list">
+        <li>Which flower to choose</li>
+        <li>What different flowers mean</li>
+        <li>Which flower suits a particular person</li>
+        <li>How to make a simple gift feel more personal</li>
+        <li>How to express a feeling without saying it directly</li>
+      </ul>
+
+      <div class="quote-box">
+        "What if, instead of choosing a flower randomly, you could choose one that reflects what you feel about the person receiving it?"
+      </div>
+
+      <p>We wanted to combine technology, personalization and the emotional language of flowers to create a gifting experience where the flower itself becomes part of the message.</p>
+    </section>
+
+    <!-- 6. OUR MISSION -->
+    <section class="vertical-section mission-section">
+      <div class="section-tag">🌸 🌸 🌸</div>
+      <h2 class="main-header">Our Mission</h2>
+      
+      <div class="mission-statement">
+        "To make it easier for people to express their feelings and love to their loved ones through flowers."
+      </div>
+
+      <p>We want to make the everyday experience of sending and receiving flowers more meaningful, emotional and personal. BloomSense believes that sometimes, you don't need more words. You just need the right flower.</p>
+    </section>
+
+  </main>
+
+</body>
+</html>

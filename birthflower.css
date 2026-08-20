@@ -1,0 +1,800 @@
+/* =========================
+   BASIC SETTINGS
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin: 0;
+
+    background: #FBF8F3;
+
+    color: #2B2525;
+
+    font-family: 'Montserrat', sans-serif;
+
+    line-height: 1.6;
+
+}
+
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+nav {
+
+    width: 100%;
+
+    min-height: 110px;
+
+    padding: 10px 8%;
+
+    background: #FBF8F3;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+.logo-link {
+
+    display: flex;
+
+    align-items: center;
+
+}
+
+
+.logo {
+
+    height: 95px;
+
+    width: auto;
+
+    max-width: 300px;
+
+    object-fit: contain;
+
+}
+
+
+.nav-links {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 35px;
+
+}
+
+
+.nav-links a {
+
+    text-decoration: none;
+
+    color: #2B2525;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    transition: 0.3s;
+
+}
+
+
+.nav-links a:hover,
+.nav-links a.active {
+
+    color: #C06C74;
+
+}
+
+
+
+/* =========================
+   MAIN PAGE
+========================= */
+
+.birthflower {
+
+    width: 100%;
+
+    padding: 20px 8% 100px;
+
+}
+
+
+
+/* =========================
+   MONTH SCREEN
+========================= */
+
+#monthScreen {
+
+    min-height: 65vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+}
+
+
+#monthScreen h1 {
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 4.5rem;
+
+    font-weight: 400;
+
+    line-height: 1.05;
+
+    margin: 0 0 20px;
+
+}
+
+
+#monthScreen h1 span {
+
+    color: #C06C74;
+
+    font-style: italic;
+
+}
+
+
+#monthScreen p {
+
+    max-width: 600px;
+
+    color: #7A7070;
+
+    font-size: 1rem;
+
+    margin: 0;
+
+}
+
+
+
+/* =========================
+   DROP-DOWN
+========================= */
+
+#month {
+
+    width: 320px;
+
+    padding: 15px 18px;
+
+    margin-top: 30px;
+
+    background: #FFFFFF;
+
+    border: 1px solid #D8BFC0;
+
+    border-radius: 9px;
+
+    color: #402C2C;
+
+    font-family: 'Montserrat', sans-serif;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    outline: none;
+
+}
+
+
+#month:focus {
+
+    border-color: #C06C74;
+
+    box-shadow: 0 0 0 3px #F8E5E9;
+
+}
+
+
+
+/* =========================
+   FLOWER RESULT
+========================= */
+
+#flowerResult {
+
+    display: none;
+
+    width: 100%;
+
+    max-width: 1250px;
+
+    margin: 0 auto;
+
+}
+
+
+#birthMonth {
+
+    text-align: center;
+
+    color: #C06C74;
+
+    font-size: 14px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 3px;
+
+    margin: 20px 0 50px;
+
+}
+
+
+
+/* =========================
+   FLOWER CONTENT
+========================= */
+
+.flower-content {
+
+    display: grid;
+
+    grid-template-columns: 45% 55%;
+
+    gap: 70px;
+
+    align-items: center;
+
+}
+
+
+
+/* =========================
+   FLOWER IMAGE
+========================= */
+
+.flower-photo {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+
+#flowerImage {
+
+    width: 520px;
+
+    
+
+    height:650px;   
+    
+    object-fit: cover;
+
+    border-radius: 12px;
+
+    box-shadow: 0 15px 35px rgba(80, 40, 40, 0.10);
+
+}
+
+
+
+/* =========================
+   FLOWER DETAILS
+========================= */
+
+.flower-details {
+
+    padding-right: 20px;
+
+}
+
+
+#flowerName {
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 4.2rem;
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    margin: 0 0 25px;
+
+    color: #2B2525;
+
+}
+
+
+.flower-details h3 {
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 1.6rem;
+
+    font-weight: 600;
+
+    color: #C06C74;
+
+    margin: 20px 0 5px;
+
+}
+
+
+#flowerMeaning,
+#personality,
+#symbolism {
+
+    color: #6F6767;
+
+    font-size: 0.92rem;
+
+    line-height: 1.8;
+
+    margin: 5px 0;
+
+}
+
+
+
+/* =========================
+   BLOOMSENSE MESSAGE
+========================= */
+
+.message {
+
+    margin-top: 30px;
+
+    padding: 25px 30px;
+
+    background: #FDE9ED;
+
+    border-left: 5px solid #C06C74;
+
+    border-radius: 0 18px 18px 0;
+
+}
+
+
+.message strong {
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 1.45rem;
+
+    color: #9F4F5C;
+
+}
+
+
+.message p {
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 1.25rem;
+
+    font-style: italic;
+
+    color: #9F4F5C;
+
+    line-height: 1.7;
+
+    margin: 10px 0 0;
+
+}
+
+
+
+/* =========================
+   BUY BUTTON
+========================= */
+
+.buyButton {
+
+    margin-top: 30px;
+
+    padding: 14px 35px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #C06C74;
+
+    color: white;
+
+    font-family: 'Montserrat', sans-serif;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+}
+
+
+.buyButton:hover {
+
+    background: #A95560;
+
+    transform: translateY(-2px);
+
+}
+
+
+
+/* =========================
+   CHECKOUT BOX
+========================= */
+
+#checkout {
+
+    display: none;
+
+    width: 100%;
+
+    max-width: 600px;
+
+    margin: 70px auto;
+
+    padding: 45px;
+
+    background: #FFFFFF;
+
+    border: 1px solid #EFE4DC;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(80, 40, 40, 0.06);
+
+}
+
+
+#checkout h1 {
+
+    text-align: center;
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 3rem;
+
+    font-weight: 500;
+
+    margin: 0;
+
+    color: #2B2525;
+
+}
+
+
+.checkout-buying {
+
+    text-align: center;
+
+    color: #7A7070;
+
+    margin: 15px 0 30px;
+
+}
+
+
+#checkoutFlower {
+
+    color: #C06C74;
+
+}
+
+
+
+/* =========================
+   CHECKOUT FORM
+========================= */
+
+#checkoutForm {
+
+    display: grid;
+
+    gap: 14px;
+
+}
+
+
+#checkoutForm input,
+#checkoutForm select {
+
+    width: 100%;
+
+    padding: 14px 15px;
+
+    border: 1px solid #DDD3CE;
+
+    border-radius: 8px;
+
+    background: #FFFFFF;
+
+    font-family: 'Montserrat', sans-serif;
+
+    font-size: 14px;
+
+    outline: none;
+
+}
+
+
+#checkoutForm input:focus,
+#checkoutForm select:focus {
+
+    border-color: #C06C74;
+
+    box-shadow: 0 0 0 3px #F8E5E9;
+
+}
+
+
+#checkoutForm .buyButton {
+
+    width: 100%;
+
+}
+
+
+
+/* =========================
+   SUCCESS BOX
+========================= */
+
+#success {
+
+    display: none;
+
+    width: 100%;
+
+    max-width: 600px;
+
+    margin: 70px auto;
+
+    padding: 50px;
+
+    text-align: center;
+
+    background: #FFFFFF;
+
+    border: 1px solid #EFE4DC;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(80, 40, 40, 0.06);
+
+}
+
+
+.successIcon {
+
+    width: 70px;
+
+    height: 70px;
+
+    margin: 0 auto 20px;
+
+    border-radius: 50%;
+
+    background: #C06C74;
+
+    color: white;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 35px;
+
+}
+
+
+#success h1 {
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 2.8rem;
+
+    font-weight: 500;
+
+    color: #C06C74;
+
+}
+
+
+#success a {
+
+    display: inline-block;
+
+    margin-top: 20px;
+
+    padding: 12px 25px;
+
+    background: #C06C74;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+}
+
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+    nav {
+
+        padding: 10px 5%;
+
+    }
+
+
+    .nav-links {
+
+        gap: 15px;
+
+    }
+
+
+    .flower-content {
+
+        grid-template-columns: 1fr;
+
+        gap: 40px;
+
+        text-align: center;
+
+    }
+
+
+    .flower-details {
+
+        padding-right: 0;
+
+    }
+
+
+    .message {
+
+        text-align: left;
+
+    }
+
+}
+
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    nav {
+
+        flex-direction: column;
+
+        gap: 10px;
+
+        padding: 10px 4%;
+
+    }
+
+
+    .logo {
+
+        height: 70px;
+
+    }
+
+
+    .nav-links {
+
+        gap: 12px;
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+
+    }
+
+
+    .nav-links a {
+
+        font-size: 12px;
+
+    }
+
+
+    .birthflower {
+
+        padding: 20px 20px 70px;
+
+    }
+
+
+    #monthScreen {
+
+        min-height: 65vh;
+
+    }
+
+
+    #monthScreen h1 {
+
+        font-size: 3rem;
+
+    }
+
+
+    #month {
+
+        width: 90%;
+
+    }
+
+
+    #flowerName {
+
+        font-size: 3rem;
+
+    }
+
+
+    #flowerImage {
+
+        width: 280px;
+
+        height: 280px;
+
+    }
+
+
+    #checkout,
+    #success {
+
+        padding: 30px 20px;
+
+    }
+
+}

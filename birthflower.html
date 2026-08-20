@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>BloomSense | Birth Flower</title>
+
+
+    <!-- GOOGLE FONTS -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap"
+          rel="stylesheet">
+
+
+    <!-- JQUERY -->
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="birthflower.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
+
+    <nav>
+
+        <a href="home.html" class="logo-link">
+
+            <img src="logoo.png.png"
+                 class="logo"
+                 alt="BloomSense Logo">
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="home.html">
+                Home
+            </a>
+
+            <a href="birthflower.html"
+               class="active">
+                Birth Flower
+            </a>
+
+            <a href="about.html">
+                About BloomSense
+            </a>
+
+            <a href="#contact">
+                Contact
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================
+         MAIN BIRTH FLOWER PAGE
+    ========================== -->
+
+    <main class="birthflower">
+
+
+        <!-- =========================
+             MONTH SELECTION
+        ========================== -->
+
+        <section id="monthScreen">
+
+            <h1>
+                Discover Your
+                <span>Birth Flower</span>
+            </h1>
+
+            <p>
+                Select your birth month to discover
+                the flower that represents you.
+            </p>
+
+
+            <select id="month">
+
+                <option value="">
+                    Select Birth Month
+                </option>
+
+                <option value="January">
+                    January
+                </option>
+
+                <option value="February">
+                    February
+                </option>
+
+                <option value="March">
+                    March
+                </option>
+
+                <option value="April">
+                    April
+                </option>
+
+                <option value="May">
+                    May
+                </option>
+
+                <option value="June">
+                    June
+                </option>
+
+                <option value="July">
+                    July
+                </option>
+
+                <option value="August">
+                    August
+                </option>
+
+                <option value="September">
+                    September
+                </option>
+
+                <option value="October">
+                    October
+                </option>
+
+                <option value="November">
+                    November
+                </option>
+
+                <option value="December">
+                    December
+                </option>
+
+            </select>
+
+        </section>
+
+
+
+        <!-- =========================
+             FLOWER RESULT
+        ========================== -->
+
+        <section id="flowerResult">
+
+
+            <p id="birthMonth"></p>
+
+
+            <div class="flower-content">
+
+
+                <!-- FLOWER IMAGE -->
+
+                <div class="flower-photo">
+
+                    <img id="flowerImage"
+                         src="images/carnation.jpg.jpeg"
+                         alt="Birth Flower">
+
+                </div>
+
+
+
+                <!-- FLOWER INFORMATION -->
+
+                <div class="flower-details">
+
+                    <h1 id="flowerName"></h1>
+
+
+                    <h3>
+                        Meaning
+                    </h3>
+
+                    <p id="flowerMeaning"></p>
+
+
+
+                    <h3>
+                        Your Personality
+                    </h3>
+
+                    <p id="personality"></p>
+
+
+
+                    <h3>
+                        Flower Symbolism
+                    </h3>
+
+                    <p id="symbolism"></p>
+
+
+
+                    <!-- BLOOMSENSE MESSAGE BOX -->
+
+                    <div class="message">
+
+                        
+            
+    
+
+                        <p id="bloomMessage"></p>
+
+                    </div>
+
+
+
+                    <!-- BUY BUTTON -->
+
+                    <button class="buyButton"
+                            onclick="showCheckout()">
+
+                        Buy This Flower
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             CHECKOUT
+        ========================== -->
+
+        <section id="checkout">
+
+            <h1>
+                Birth Flower
+            </h1>
+
+
+            <p class="checkout-buying">
+
+                You are buying:
+
+                <strong id="checkoutFlower"></strong>
+
+            </p>
+
+
+            <form id="checkoutForm">
+
+
+                <input
+                    type="text"
+                    id="customerName"
+                    placeholder="Full Name"
+                    required
+                >
+
+
+                <input
+                    type="email"
+                    id="customerEmail"
+                    placeholder="Email Address"
+                    required
+                >
+
+
+                <input
+                    type="text"
+                    id="customerAddress"
+                    placeholder="Delivery Address"
+                    required
+                >
+
+
+                <input
+                    type="number"
+                    id="quantity"
+                    placeholder="Quantity"
+                    value="1"
+                    min="1"
+                    required
+                >
+
+
+                <select id="payment"
+                        required>
+
+                    <option value="">
+                        Select Payment Method
+                    </option>
+
+                    <option value="UPI">
+                        UPI
+                    </option>
+
+                    <option value="Card">
+                        Credit / Debit Card
+                    </option>
+
+                    <option value="COD">
+                        Cash on Delivery
+                    </option>
+
+                </select>
+
+
+                <button
+                    type="submit"
+                    class="buyButton">
+
+                    Place Order
+
+                </button>
+
+
+            </form>
+
+        </section>
+
+
+
+        <!-- =========================
+             SUCCESS
+        ========================== -->
+
+        <section id="success">
+
+            <div class="successIcon">
+                ✓
+            </div>
+
+
+            <h1>
+                Order Placed Successfully!
+            </h1>
+
+
+            <p id="successFlower"></p>
+
+
+            <p>
+                Thank you for choosing BloomSense.
+            </p>
+
+
+            <a href="home.html">
+                Back to BloomSense
+            </a>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="birthflower.js"></script>
+
+</body>
+
+</html>
