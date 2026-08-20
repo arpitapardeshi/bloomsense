@@ -2,7 +2,7 @@ const flowers = {
 
     January: {
         name: "Carnation",
-        image: "images/carnation.jpg.jpeg",
+        image: "carnation.jpg.jpeg",
         meaning: "Love • Admiration • Fascination • Connection",
         personality: "Just like carnations thrive in a garden and enhance the beauty of their surroundings, those born in January have a natural ability to bring people together.",
         symbolism: "Carnations have traditionally been associated with love, admiration and fascination.",
@@ -11,7 +11,7 @@ const flowers = {
 
     February: {
         name: "Violet",
-        image: "images/violet.jpg.jpeg",
+        image: "violet.jpg.jpeg",
         meaning: "Modesty • Faithfulness • Everlasting Love • Innocence",
         personality: "Those born in February have a unique charm and charisma. Their presence inspires admiration, while they carry themselves with confidence and humility.",
         symbolism: "Violets traditionally symbolize modesty, faithfulness, everlasting love, innocence and remembrance.",
@@ -20,7 +20,7 @@ const flowers = {
 
     March: {
         name: "Daffodil",
-        image: "images/daffodil.jpg.jpeg",
+        image: "daffodil.jpg.jpeg",
         meaning: "Hope • New Beginnings • Happiness • Good Fortune",
         personality: "Like the daffodil welcoming spring, those born in March often brighten the mood of others and bring a feeling of hope.",
         symbolism: "Daffodils are traditionally associated with rebirth, new beginnings, hope and good fortune.",
@@ -29,7 +29,7 @@ const flowers = {
 
     April: {
         name: "Daisy",
-        image: "images/daisy.jpg.jpeg",
+        image: "daisy.jpg.jpeg",
         meaning: "Innocence • Purity • True Love • Friendship",
         personality: "Those born in April are associated with a genuine and warm nature. Their openness and sincerity make people feel comfortable around them.",
         symbolism: "Daisies traditionally represent innocence, purity and true love.",
@@ -38,7 +38,7 @@ const flowers = {
 
     May: {
         name: "Lily of the Valley",
-        image: "images/lilyofthevalley.jpg.jpeg",
+        image: "lilyofthevalley.jpg.jpeg",
         meaning: "Happiness • Renewal • Grace • Good Luck",
         personality: "Like the delicate Lily of the Valley, those born in May have a graceful presence that naturally captivates others.",
         symbolism: "Lily of the Valley is traditionally associated with happiness, renewal and good luck.",
@@ -47,7 +47,7 @@ const flowers = {
 
     June: {
         name: "Rose",
-        image: "images/rose.jpg.jpeg",
+        image: "rose.jpg.jpeg",
         meaning: "Love • Beauty • Affection • Admiration",
         personality: "Like the rose bringing calm beauty to a garden, those born in June often bring a calming and comforting presence to others.",
         symbolism: "Roses traditionally symbolize love, beauty and affection.",
@@ -56,7 +56,7 @@ const flowers = {
 
     July: {
         name: "Water Lily",
-        image: "images/waterlily.jpg.jpeg",
+        image: "waterlily.jpg.jpeg",
         meaning: "Purity • Innocence • Joy • Rebirth • Wisdom",
         personality: "Like the water lily rising beautifully above the water, those born in July have a natural affinity for beauty and elegance.",
         symbolism: "Water lilies can represent purity, innocence, joy, friendship, wisdom and rebirth.",
@@ -65,7 +65,7 @@ const flowers = {
 
     August: {
         name: "Poppy",
-        image: "images/poppy.jpg.jpeg",
+        image: "poppy.jpg.jpeg",
         meaning: "Remembrance • Strength • Confidence • Passion",
         personality: "Like the poppy standing tall, those born in August are associated with confidence, leadership and a strong passion for what they believe in.",
         symbolism: "Poppies are strongly associated with remembrance and honoring loved ones.",
@@ -74,7 +74,7 @@ const flowers = {
 
     September: {
         name: "Aster",
-        image: "images/aster.jpg.jpeg",
+        image: "aster.jpg.jpeg",
         meaning: "Love • Wisdom • Patience • Faith • Friendship",
         personality: "Those born in September are associated with patience, wisdom and thoughtfulness, combining a gentle nature with inner strength.",
         symbolism: "Asters traditionally symbolize love, wisdom, patience, beauty, faith and friendship.",
@@ -83,7 +83,7 @@ const flowers = {
 
     October: {
         name: "Marigold",
-        image: "images/marigold.jpg.jpeg",
+        image: "marigold.jpg.jpeg",
         meaning: "Warmth • Positivity • Friendship • Creativity",
         personality: "Like the marigold radiating brilliant shades of orange and yellow, those born in October bring warmth and positivity wherever they go.",
         symbolism: "Marigolds are strongly connected with friendship, celebration and cultural traditions.",
@@ -92,7 +92,7 @@ const flowers = {
 
     November: {
         name: "Chrysanthemum",
-        image: "images/chrysanthemum.jpg.jpeg",
+        image: "chrysanthemum.jpg.jpeg",
         meaning: "Loyalty • Friendship • Joy • Longevity",
         personality: "Those born in November can have many sides to their personality, combining loyalty and warmth with a strong and dependable nature.",
         symbolism: "Chrysanthemums can symbolize loyalty, friendship, joy and longevity.",
@@ -101,7 +101,7 @@ const flowers = {
 
     December: {
         name: "Narcissus",
-        image: "images/narcissus.jpg.jpeg",
+        image: "narcissus.jpg.jpeg",
         meaning: "Love • Devotion • Hope • Uniqueness",
         personality: "Like the distinctive narcissus, those born in December are associated with individuality, confidence and a memorable presence.",
         symbolism: "In Victorian flower language, giving a narcissus could express the message 'you are the only one.'",
