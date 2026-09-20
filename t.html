@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Find Your Flower | BloomSense</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:#FBF8F3;
+    color:#2B2525;
+    font-family:'Montserrat',sans-serif;
+}
+
+nav{
+    height:85px;
+    padding:10px 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid #eee3df;
+}
+
+.logo{
+    width:145px;
+}
+
+.nav-links{
+    display:flex;
+    gap:32px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#302828;
+    font-size:14px;
+}
+
+.nav-links a:hover{
+    color:#C9586D;
+}
+
+.page{
+    max-width:950px;
+    margin:auto;
+    padding:32px 6% 40px;
+}
+
+.heading{
+    text-align:center;
+}
+
+.small-title{
+    color:#C9586D;
+    letter-spacing:3px;
+    font-size:12px;
+    margin:0 0 8px;
+}
+
+.heading h1{
+    font-family:'Cormorant Garamond',serif;
+    font-size:4rem;
+    font-weight:400;
+    margin:5px 0 10px;
+    line-height:1.05;
+}
+
+.heading h1 span{
+    color:#C9586D;
+    font-style:italic;
+}
+
+.heading p{
+    color:#777;
+    line-height:1.6;
+    max-width:680px;
+    margin:auto;
+    font-size:14px;
+}
+
+.question-box{
+    display:none;
+    margin-top:60px;
+    background:#FFFDFC;
+    border:1px solid #E6D8D4;
+    border-radius:15px;
+    padding:72px 45px 68px;
+    box-shadow:0 8px 25px rgba(100,70,70,.05);
+}
+
+.progress{
+    text-align:center;
+    color:#C9586D;
+    font-size:11px;
+    letter-spacing:2px;
+    margin-bottom:14px;
+}
+
+.question{
+    text-align:center;
+}
+
+.question h3{
+    font-family:'Cormorant Garamond',serif;
+    font-size:2.7rem;
+    font-weight:500;
+    line-height:1.15;
+    margin:5px auto 32px;
+    max-width:720px;
+}
+
+.options{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:13px;
+    max-width:760px;
+    margin:auto;
+}
+
+.option{
+    border:1px solid #DCCBC6;
+    background:white;
+    color:#443A3A;
+    padding:13px 21px;
+    border-radius:25px;
+    cursor:pointer;
+    font-family:'Montserrat',sans-serif;
+    font-size:13px;
+    transition:.2s;
+}
+
+.option:hover,
+.option.selected{
+    background:#D9576E;
+    border-color:#D9576E;
+    color:white;
+}
+
+.continue{
+    width:100%;
+    border:0;
+    background:#D9576E;
+    color:white;
+    padding:14px;
+    border-radius:7px;
+    cursor:pointer;
+    font-family:'Montserrat',sans-serif;
+    font-size:14px;
+    margin-top:32px;
+}
+
+.continue:hover{
+    background:#BD455B;
+}
+
+.back{
+    display:block;
+    text-align:center;
+    margin-top:17px;
+    color:#C9586D;
+    text-decoration:none;
+    font-size:12px;
+}
+
+@media(max-width:750px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .logo{
+        width:120px;
+    }
+
+    .page{
+        padding:25px 5% 35px;
+    }
+
+    .heading h1{
+        font-size:3rem;
+    }
+
+    .question-box{
+        padding:32px 20px;
+    }
+
+    .question h3{
+        font-size:2.2rem;
+        margin-bottom:26px;
+    }
+
+    .option{
+        padding:11px 17px;
+        font-size:12px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<nav>
+
+<a href="Home.html">
+<img src="logoo.png.png" class="logo" alt="BloomSense">
+</a>
+
+<div class="nav-links">
+
+<a href="Home.html">
+Home
+</a>
+
+<a href="Home.html#buy-flowers">
+Buy Flowers
+</a>
+
+<a href="About.html">
+About Us
+</a>
+
+<a href="contact.html">
+Contact
+</a>
+
+</div>
+
+</nav>
+
+
+<main class="page">
+
+
+<div class="heading">
+
+<p class="small-title">
+BLOOMSENSE
+</p>
+
+<h1>
+Find the <span>Perfect Flower</span>
+</h1>
+
+</div>
+
+
+<!-- MESSAGE QUESTION 1 -->
+
+<div class="question-box" id="m1">
+
+<div class="progress">
+QUESTION 1 OF 2
+</div>
+
+<div class="question">
+
+<h3>
+Who are you buying this flower for?
+</h3>
+
+<div class="options recipient-options">
+
+<button class="option" data-value="Partner">
+Partner / Spouse
+</button>
+
+<button class="option" data-value="Friend">
+Friend
+</button>
+
+<button class="option" data-value="Family Member">
+Family Member
+</button>
+
+<button class="option" data-value="Classmate / Colleague">
+Classmate / Colleague
+</button>
+
+<button class="option" data-value="Teacher / Mentor">
+Teacher / Mentor
+</button>
+
+</div>
+
+</div>
+
+<button class="continue" id="mNext1">
+Continue →
+</button>
+
+<a href="help.html" class="back">
+← Choose another way
+</a>
+
+</div>
+
+
+<!-- MESSAGE QUESTION 2 -->
+
+<div class="question-box" id="m2">
+
+<div class="progress">
+QUESTION 2 OF 2
+</div>
+
+<div class="question">
+
+<h3>
+What message do you want to convey?
+</h3>
+
+<div class="options message-options">
+
+<button class="option" data-value="Happy Birthday">
+Happy Birthday
+</button>
+
+<button class="option" data-value="I Love You">
+I Love You
+</button>
+
+<button class="option" data-value="I Miss You">
+I Miss You
+</button>
+
+<button class="option" data-value="Thank You">
+Thank You
+</button>
+
+<button class="option" data-value="Congratulations">
+Congratulations
+</button>
+
+<button class="option" data-value="Get Well Soon">
+Get Well Soon
+</button>
+
+<button class="option" data-value="Best of Luck">
+Best of Luck
+</button>
+
+<button class="option" data-value="You Are Special to Me">
+You Are Special to Me
+</button>
+
+<button class="option" data-value="I'm Always Here for You">
+I'm Always Here for You
+</button>
+
+</div>
+
+</div>
+
+<button class="continue" id="finishMessage">
+Find My Flower →
+</button>
+
+</div>
+
+
+<!-- TRAITS QUESTION 1 -->
+
+<div class="question-box" id="t1">
+
+<div class="progress">
+QUESTION 1 OF 2
+</div>
+
+<div class="question">
+
+<h3>
+Who are you buying this flower for?
+</h3>
+
+<div class="options trait-recipient">
+
+<button class="option" data-value="Partner">
+Partner / Spouse
+</button>
+
+<button class="option" data-value="Friend">
+Friend
+</button>
+
+<button class="option" data-value="Family Member">
+Family Member
+</button>
+
+<button class="option" data-value="Classmate / Colleague">
+Classmate / Colleague
+</button>
+
+<button class="option" data-value="Teacher / Mentor">
+Teacher / Mentor
+</button>
+
+</div>
+
+</div>
+
+<button class="continue" id="tNext1">
+Continue →
+</button>
+
+<a href="help.html" class="back">
+← Choose another way
+</a>
+
+</div>
+
+
+<!-- TRAITS QUESTION 2 -->
+
+<div class="question-box" id="t2">
+
+<div class="progress">
+QUESTION 2 OF 2
+</div>
+
+<div class="question">
+
+<h3>
+What are their personality traits?
+</h3>
+
+<p style="color:#777;font-size:13px">
+Select up to 3 traits.
+</p>
+
+<div class="options trait-options">
+
+<button class="option">Gentle</button>
+<button class="option">Caring</button>
+<button class="option">Elegant</button>
+<button class="option">Sophisticated</button>
+<button class="option">Confident</button>
+<button class="option">Adventurous</button>
+<button class="option">Fun</button>
+<button class="option">Calm</button>
+<button class="option">Romantic</button>
+<button class="option">Cheerful</button>
+<button class="option">Kind</button>
+<button class="option">Thoughtful</button>
+<button class="option">Independent</button>
+<button class="option">Ambitious</button>
+<button class="option">Loyal</button>
+<button class="option">Dependable</button>
+<button class="option">Warm</button>
+<button class="option">Friendly</button>
+<button class="option">Unique</button>
+
+</div>
+
+</div>
+
+<button class="continue" id="finishTraits">
+Find My Flower →
+</button>
+
+</div>
+
+
+</main>
+
+
+<script src="Temp.js"></script>
+
+</body>
+
+</html>

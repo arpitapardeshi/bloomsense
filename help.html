@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Find the Perfect Flower | BloomSense</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #fffdfb;
+    color: #4d4847;
+}
+
+
+/* NAVBAR */
+
+.navbar {
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    background: #fffdfb;
+}
+
+.logo img {
+    width: 155px;
+    height: auto;
+    display: block;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 34px;
+}
+
+.navbar nav a {
+    text-decoration: none;
+    font-family: "Montserrat", sans-serif;
+    font-size: 12px;
+    color: #66605e;
+    transition: .3s;
+}
+
+.navbar nav a:hover {
+    color: #c77886;
+}
+
+
+/* MAIN */
+
+.find-flower {
+    min-height: calc(100vh - 85px);
+    padding: 85px 0 100px;
+}
+
+.intro {
+    text-align: center;
+    max-width: 800px;
+    margin: auto;
+    padding: 0 25px;
+}
+
+.small-title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: #a98286;
+    margin-bottom: 20px;
+}
+
+.intro h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 58px;
+    font-weight: 400;
+    line-height: 1.1;
+    color: #4f4a49;
+    margin-bottom: 20px;
+}
+
+.intro h1 span {
+    color: #bd7d87;
+    font-style: italic;
+}
+
+.intro-text {
+    font-family: "Montserrat", sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: #777170;
+    max-width: 620px;
+    margin: auto;
+}
+
+
+/* CARDS */
+
+.flower-options {
+    width: 850px;
+    max-width: 90%;
+    margin: 55px auto 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.flower-card {
+    min-height: 340px;
+    padding: 50px 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: #fdf1f3;
+    border: 1px solid #efdfe1;
+    border-radius: 8px;
+    transition: .3s;
+}
+
+.flower-card:nth-child(2) {
+    background: #f9f0ee;
+    border-color: #eee0dc;
+}
+
+.flower-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(120,80,80,.10);
+}
+
+
+/* ICONS */
+
+.icon-circle {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #c97886;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(201,120,134,.18);
+}
+
+.icon-circle i {
+    color: white;
+    font-size: 25px;
+}
+
+
+/* CARD TEXT */
+
+.flower-card h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: #4c4746;
+    margin-bottom: 12px;
+}
+
+.flower-card p {
+    font-family: "Montserrat", sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: #777170;
+    max-width: 270px;
+    margin-bottom: 25px;
+}
+
+
+/* ARROW */
+
+.arrow-btn {
+    width: 52px;
+    height: 32px;
+    border-radius: 20px;
+    background: #c97886;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    margin-top: auto;
+    transition: .3s;
+}
+
+.arrow-btn i {
+    color: white;
+    font-size: 12px;
+}
+
+.arrow-btn:hover {
+    background: #b96876;
+    transform: translateX(3px);
+}
+
+
+/* TABLET */
+
+@media (max-width: 800px) {
+
+    .navbar {
+        padding: 0 5%;
+    }
+
+    .navbar nav {
+        gap: 15px;
+    }
+
+    .intro h1 {
+        font-size: 45px;
+    }
+
+    .flower-options {
+        grid-template-columns: 1fr;
+        width: 500px;
+    }
+}
+
+
+/* MOBILE */
+
+@media (max-width: 550px) {
+
+    .navbar {
+        height: auto;
+        padding: 25px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .logo img {
+        width: 110px;
+    }
+
+    .navbar nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .find-flower {
+        padding-top: 60px;
+    }
+
+    .intro h1 {
+        font-size: 40px;
+    }
+
+    .flower-options {
+        max-width: 92%;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .flower-card {
+        min-height: 320px;
+        padding: 45px 25px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        <a href="home.html">
+            <img src="LOGOO.PNG.PNG" alt="BloomSense Logo">
+        </a>
+    </div>
+
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="buyflower.html">Buy Flowers</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+</header>
+
+
+<main class="find-flower">
+
+    <section class="intro">
+
+        <p class="small-title">
+            BLOOMSENSE
+        </p>
+
+        <h1>
+            Find the <span>Perfect Flower</span>
+        </h1>
+
+        <p class="intro-text">
+            Choose whether you want to find a flower based on the
+            message you want to convey or the personality traits
+            of the person you are buying for.
+        </p>
+
+    </section>
+
+
+    <section class="flower-options">
+
+        <!-- CHOOSE BY MESSAGE -->
+
+        <div class="flower-card">
+
+            <div class="icon-circle">
+                <i class="fa-regular fa-heart"></i>
+            </div>
+
+            <h2>
+                Choose by Message
+            </h2>
+
+            <p>
+                Find a flower that expresses exactly what
+                you want to say.
+            </p>
+
+            <a href="t.html" class="arrow-btn">
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </div>
+
+
+        <!-- CHOOSE BY TRAITS -->
+
+        <div class="flower-card">
+
+            <div class="icon-circle">
+                <i class="fa-solid fa-user"></i>
+            </div>
+
+            <h2>
+                Choose by Traits
+            </h2>
+
+            <p>
+                Find a flower that matches their
+                personality.
+            </p>
+
+            <a href="t.html?mode=traits" class="arrow-btn">
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+</body>
+</html>

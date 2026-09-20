@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Your Flower Matches | BloomSense</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<style>
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+background:#FBF8F3;
+color:#2B2525;
+font-family:'Montserrat',sans-serif
+}
+
+nav{
+height:85px;
+padding:10px 6%;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border-bottom:1px solid #eee3df
+}
+
+.logo{width:145px}
+
+.nav-links{display:flex;gap:32px}
+
+.nav-links a{
+text-decoration:none;
+color:#302828;
+font-size:14px
+}
+
+.nav-links a:hover{color:#C9586D}
+
+.page{
+max-width:1100px;
+margin:auto;
+padding:65px 6%
+}
+
+.top{text-align:center}
+
+.small-title{
+color:#C9586D;
+letter-spacing:3px;
+font-size:12px
+}
+
+.top h1{
+font-family:'Cormorant Garamond',serif;
+font-size:4rem;
+font-weight:400;
+margin:15px 0
+}
+
+.top h1 span{
+color:#C9586D;
+font-style:italic
+}
+
+.top p{
+color:#777;
+line-height:1.7;
+max-width:650px;
+margin:auto
+}
+
+.back-questions{
+display:block;
+width:max-content;
+margin:25px auto 0;
+color:#C9586D;
+font-size:12px;
+text-decoration:none
+}
+
+.back-questions:hover{color:#BD455B}
+
+#matchList{margin-top:55px}
+
+.match-card{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:40px;
+background:#FFFDFC;
+border:1px solid #E6D8D4;
+border-radius:15px;
+padding:35px 40px;
+margin-bottom:22px;
+min-height:155px;
+transition:.25s
+}
+
+.match-card:hover{
+transform:translateY(-4px);
+border-color:#D9576E
+}
+
+.match-left{
+display:flex;
+align-items:center;
+gap:25px;
+}
+
+.match-image{
+width:115px;
+height:115px;
+object-fit:cover;
+border-radius:10px;
+flex-shrink:0;
+}
+
+.match-number{
+color:#C9586D;
+font-size:11px;
+letter-spacing:2px;
+margin-bottom:8px
+}
+
+.match-card h3{
+font-family:'Cormorant Garamond',serif;
+font-size:2.3rem;
+font-weight:500;
+margin:0 0 10px
+}
+
+.match-reason{
+color:#777;
+font-size:13px;
+line-height:1.7;
+margin:0;
+max-width:620px
+}
+
+.match-right{
+min-width:170px;
+text-align:center
+}
+
+.match-score{
+color:#C9586D;
+font-size:20px;
+font-weight:600;
+margin-bottom:15px
+}
+
+.explore-button,
+.checkout-button{
+border:0;
+background:#D9576E;
+color:white;
+padding:13px 23px;
+border-radius:7px;
+cursor:pointer;
+font-family:'Montserrat',sans-serif;
+font-size:13px
+}
+
+.explore-button:hover,
+.checkout-button:hover{
+background:#BD455B
+}
+
+#flowerDetail{
+display:none;
+margin-top:55px;
+background:#FFFDFC;
+border:1px solid #E6D8D4;
+border-radius:16px;
+padding:45px
+}
+
+.detail-content{
+display:flex;
+gap:55px;
+align-items:flex-start
+}
+
+.detail-image{
+width:40%
+}
+
+.detail-image img{
+width:100%;
+height:430px;
+object-fit:cover;
+border-radius:12px
+}
+
+.detail-info{
+flex:1;
+padding:5px 0
+}
+
+.detail-label{
+color:#C9586D;
+font-size:11px;
+letter-spacing:2px
+}
+
+.detail-info h2{
+font-family:'Cormorant Garamond',serif;
+font-size:3.5rem;
+font-weight:500;
+margin:12px 0 30px
+}
+
+.info-block{
+margin-bottom:25px
+}
+
+.info-block h4{
+margin:0 0 8px;
+font-size:13px;
+color:#555
+}
+
+.info-block p{
+color:#706767;
+line-height:1.8;
+font-size:14px;
+margin:0
+}
+
+.buy-options{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+margin-top:30px
+}
+
+.buy-button{
+border:1px solid #D9576E;
+background:white;
+color:#C9586D;
+padding:14px 20px;
+border-radius:7px;
+cursor:pointer;
+font-family:'Montserrat',sans-serif;
+font-size:13px
+}
+
+.buy-button:hover,
+.buy-button.selected{
+background:#D9576E;
+color:white
+}
+
+/* PERSONAL MESSAGE */
+
+.personal-message{
+margin-top:20px
+}
+
+.personal-message label{
+display:block;
+font-size:13px;
+color:#555;
+margin-bottom:8px
+}
+
+.personal-message textarea{
+width:100%;
+min-height:90px;
+resize:vertical;
+border:1px solid #E6D8D4;
+border-radius:7px;
+padding:12px;
+font-family:'Montserrat',sans-serif;
+font-size:13px;
+color:#2B2525;
+background:#FFFDFC;
+outline:none
+}
+
+.personal-message textarea:focus{
+border-color:#D9576E
+}
+
+.personal-message small{
+display:block;
+color:#999;
+font-size:11px;
+margin-top:6px
+}
+
+.price{
+font-weight:600;
+color:#C9586D;
+margin-top:15px
+}
+
+.order-action{
+margin-top:30px;
+padding-top:25px;
+border-top:1px solid #E8DCD8;
+text-align:right
+}
+
+.order-action small{
+display:block;
+color:#888;
+margin-bottom:12px
+}
+
+@media(max-width:800px){
+
+.nav-links{display:none}
+
+.page{padding:45px 5%}
+
+.top h1{font-size:3rem}
+
+.match-card{
+flex-direction:column;
+align-items:flex-start
+}
+
+.match-left{width:100%}
+
+.match-right{text-align:left}
+
+.detail-content{
+flex-direction:column
+}
+
+.detail-image{
+width:100%
+}
+
+#flowerDetail{
+padding:30px 22px
+}
+
+.detail-info h2{
+font-size:2.8rem
+}
+
+.order-action{
+text-align:left
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+
+<a href="Home.html">
+<img src="logoo.png.png" class="logo" alt="BloomSense">
+</a>
+
+<div class="nav-links">
+
+<a href="Home.html">Home</a>
+<a href="Home.html#buy-flowers">Buy Flowers</a>
+<a href="About.html">About Us</a>
+<a href="contact.html">Contact</a>
+
+</div>
+
+</nav>
+
+
+<main class="page">
+
+<div class="top">
+
+<p class="small-title">BLOOMSENSE</p>
+
+
+<h1>Your flower <span>matches</span></h1>
+
+<p>
+We found flowers that best match the message
+or personality traits you selected.
+</p>
+
+</div>
+
+
+<div id="matchList"></div>
+
+
+<section id="flowerDetail">
+
+<div class="detail-content">
+
+<div class="detail-image">
+
+<img id="detailImage" src="" alt="Flower">
+
+</div>
+
+
+<div class="detail-info">
+
+<p class="detail-label">YOUR FLOWER MATCH</p>
+
+<h2 id="detailName"></h2>
+
+
+<div class="info-block">
+
+<h4 id="messageHeading">
+What message does it convey?
+</h4>
+
+<p id="detailMessage"></p>
+
+</div>
+
+
+<div class="info-block">
+
+<h4>What it represents</h4>
+
+<p id="detailMeaning"></p>
+
+</div>
+
+
+<div class="buy-options">
+
+<button type="button" class="buy-button" id="singleButton">
+Buy Single Flower
+</button>
+
+<button type="button" class="buy-button" id="bouquetButton">
+Buy as a Bouquet
+</button>
+
+</div>
+
+
+<!-- THIS WAS MISSING -->
+
+<div class="personal-message">
+
+<label for="personalMessage">
+Add a personal message <span>(Optional)</span>
+</label>
+
+<textarea
+id="personalMessage"
+placeholder="Write a message to send with the flower..."
+></textarea>
+
+<small>
+Adding a personal message is optional.
+</small>
+
+</div>
+
+
+<p class="price" id="singlePrice"></p>
+
+
+<div class="order-action">
+
+<small>
+Select a purchase option above, then complete your order.
+</small>
+
+<button type="button" class="checkout-button" id="checkoutButton">
+Complete My Order →
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<script src="matches.js"></script>
+
+</body>
+</html>
