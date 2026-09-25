@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -12,6 +13,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
@@ -33,7 +37,7 @@ nav{
     padding:10px 6%;
     display:flex;
     align-items:center;
-    justify-content:space-between;
+    justify-content:flex-start;
     border-bottom:1px solid #eee3df;
 }
 
@@ -44,6 +48,7 @@ nav{
 .nav-links{
     display:flex;
     gap:32px;
+    margin-left:auto;
 }
 
 .nav-links a{
@@ -55,6 +60,44 @@ nav{
 .nav-links a:hover{
     color:#C9586D;
 }
+
+
+/* CART */
+
+.btn-trolley{
+
+    width:44px;
+
+    height:44px;
+
+    border:1px solid #C06C74;
+
+    border-radius:50%;
+
+    color:#C06C74;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-decoration:none;
+
+    transition:0.3s;
+
+    margin-left:25px;
+
+}
+
+.btn-trolley:hover{
+
+    background:#C06C74;
+
+    color:#fff;
+
+}
+
 
 .page{
     max-width:950px;
@@ -224,8 +267,13 @@ nav{
 <nav>
 
 <a href="Home.html">
-<img src="logoo.png.png" class="logo" alt="BloomSense">
+
+<img src="logoo.png.png"
+     class="logo"
+     alt="BloomSense">
+
 </a>
+
 
 <div class="nav-links">
 
@@ -246,6 +294,18 @@ Contact
 </a>
 
 </div>
+
+
+<!-- CART -->
+
+<a href="#"
+   class="btn-trolley"
+   title="Shopping Cart">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+</a>
+
 
 </nav>
 
@@ -485,7 +545,7 @@ Find My Flower →
 </main>
 
 
-<script src="temp.js"></script>
+<script src="Temp.js"></script>
 
 </body>
 
