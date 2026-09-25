@@ -1,177 +1,176 @@
-
 $(function(){
 
 const flowers=[
 
-{name:"Sunflower",image:"sunflower.jpg",bouquetImage:"sunflower-bouquet.jpg",
+{name:"Sunflower",image:"images/sunflower.jpg",bouquetImage:"images/sunflower-bouquet.jpg",
 meaning:"Warmth, happiness, loyalty and positivity.",
 message:"You are the light I need.",
 traits:["Cheerful","Warm","Confident","Friendly","Fun","Adventurous"],
 messages:["Happy Birthday","Congratulations"],
 receivers:["Friend","Family Member","Classmate / Colleague","Teacher / Mentor"]},
 
-{name:"Daisy",image:"daisy.jpg",bouquetImage:"daisy-bouquet.jpg",
+{name:"Daisy",image:"images/daisy.jpg",bouquetImage:"images/daisy-bouquet.jpg",
 meaning:"Innocence, friendship and happiness.",
 message:"Your friendship means so much to me.",
 traits:["Gentle","Friendly","Cheerful","Fun","Kind","Warm","Thoughtful"],
 messages:["Happy Birthday","Thank You"],
 receivers:["Friend","Family Member","Classmate / Colleague"]},
 
-{name:"Daffodil",image:"daffodil.jpg",bouquetImage:"daffodil-bouquet.jpg",
+{name:"Daffodil",image:"images/daffodil.jpg",bouquetImage:"images/daffodil-bouquet.jpg",
 meaning:"New beginnings, good luck and unequalled love.",
 message:"May this be the beginning of something wonderful.",
 traits:["Confident","Adventurous","Cheerful","Independent","Ambitious","Unique","Fun"],
 messages:["Happy Birthday","Congratulations","Best of Luck"],
 receivers:["Friend","Family Member","Classmate / Colleague","Teacher / Mentor"]},
 
-{name:"Dahlia",image:"dahlia.jpg",bouquetImage:"dahlia-bouquet.jpg",
+{name:"Dahlia",image:"images/dahlia.jpg",bouquetImage:"images/dahlia-bouquet.jpg",
 meaning:"Elegance, confidence, individuality and inner strength.",
 message:"You are remarkable and wonderfully unique.",
 traits:["Elegant","Sophisticated","Confident","Unique","Ambitious"],
 messages:["Happy Birthday","You Are Special to Me"],
 receivers:["Friend","Family Member","Classmate / Colleague"]},
 
-{name:"Violet",image:"violet.jpg",bouquetImage:"violet-bouquet.jpg",
+{name:"Violet",image:"images/violet.jpg",bouquetImage:"images/violet-bouquet.jpg",
 meaning:"Faithfulness, loyalty and everlasting affection.",
 message:"I will always be there for you.",
 traits:["Gentle","Caring","Elegant","Calm","Thoughtful","Loyal","Dependable","Warm"],
 messages:["I Miss You","I'm Always Here for You","You Are Special to Me"],
 receivers:["Partner","Friend","Family Member"]},
 
-{name:"Baby's Breath",image:"babysbreath.jpg",bouquetImage:"babysbreath-bouquet.jpg",
+{name:"Baby's Breath",image:"images/babysbreath.jpg",bouquetImage:"images/babysbreath-bouquet.jpg",
 meaning:"Lasting love, gentleness and everlasting affection.",
 message:"My affection for you will always remain.",
 traits:["Gentle","Caring","Romantic","Calm","Kind","Thoughtful","Loyal","Warm"],
 messages:["I Love You","You Are Special to Me","I'm Always Here for You"],
 receivers:["Partner","Friend","Family Member"]},
 
-{name:"Forget-me-not",image:"forgetmenot.jpg",bouquetImage:"forgetmenot-bouquet.jpg",
+{name:"Forget-me-not",image:"images/forgetmenot.jpg",bouquetImage:"images/forgetmenot-bouquet.jpg",
 meaning:"Remembrance, loyalty and lasting affection.",
 message:"Please don't forget me.",
 traits:["Loyal","Romantic","Thoughtful","Caring","Gentle","Dependable"],
 messages:["I Miss You","Don't Forget Me"],
 receivers:["Partner","Friend","Family Member"]},
 
-{name:"Hydrangea",image:"hydrangea.jpg",bouquetImage:"hydrangea-bouquet.jpg",
+{name:"Hydrangea",image:"images/hydrangea.jpg",bouquetImage:"images/hydrangea-bouquet.jpg",
 meaning:"Gratitude, understanding and heartfelt appreciation.",
 message:"Thank you for understanding me.",
 traits:["Thoughtful","Caring","Kind","Gentle","Warm","Calm"],
 messages:["Thank You"],
 receivers:["Friend","Family Member","Classmate / Colleague","Teacher / Mentor"]},
 
-{name:"Pink Carnation",image:"pinkcarnation.jpg",bouquetImage:"pinkcarnation-bouquet.jpg",
+{name:"Pink Carnation",image:"images/pinkcarnation.jpg",bouquetImage:"images/pinkcarnation-bouquet.jpg",
 meaning:"Remembrance, affection and gratitude.",
 message:"I will always remember and appreciate you.",
 traits:["Loyal","Thoughtful","Caring","Dependable","Gentle"],
 messages:["Thank You","I Miss You"],
 receivers:["Partner","Friend","Family Member"]},
 
-{name:"Rosemary",image:"rosemary.jpg",bouquetImage:"rosemary-bouquet.jpg",
+{name:"Rosemary",image:"images/rosemary.jpg",bouquetImage:"images/rosemary-bouquet.jpg",
 meaning:"Remembrance, loyalty and devotion.",
 message:"I will remember you always.",
 traits:["Loyal","Dependable","Thoughtful","Calm","Caring","Gentle"],
 messages:["I Miss You"],
 receivers:["Partner","Friend","Family Member"]},
 
-{name:"Lily",image:"lily.jpg",bouquetImage:"lily-bouquet.jpg",
+{name:"Lily",image:"images/lily.jpg",bouquetImage:"images/lily-bouquet.jpg",
 meaning:"True love, purity and elegance.",
 message:"You are precious to me, and my love for you is true.",
 traits:["Elegant","Sophisticated","Romantic","Gentle","Loyal","Calm"],
 messages:["I Love You","You Are Special to Me"],
 receivers:["Partner","Family Member","Friend"]},
 
-{name:"Red Rose",image:"redrose.jpg",bouquetImage:"redrose-bouquet.jpg",
+{name:"Red Rose",image:"images/redrose.jpg",bouquetImage:"images/redrose-bouquet.jpg",
 meaning:"Love, romance and deep affection.",
 message:"I love you.",
 traits:["Romantic","Confident","Elegant","Sophisticated"],
 messages:["I Love You"],
 receivers:["Partner"]},
 
-{name:"Pink Rose",image:"pinkrose.jpg",bouquetImage:"pinkrose-bouquet.jpg",
+{name:"Pink Rose",image:"images/pinkrose.jpg",bouquetImage:"images/pinkrose-bouquet.jpg",
 meaning:"Admiration, care and gentle affection.",
 message:"I admire you, and I'll always be there for you.",
 traits:["Gentle","Caring","Elegant","Romantic","Thoughtful","Warm"],
 messages:["Thank You","You Are Special to Me","I'm Always Here for You"],
 receivers:["Partner","Friend","Family Member"]},
 
-{name:"White Rose",image:"whiterose.jpg",bouquetImage:"whiterose-bouquet.jpg",
+{name:"White Rose",image:"images/whiterose.jpg",bouquetImage:"images/whiterose-bouquet.jpg",
 meaning:"Innocence, purity, elegance and calmness.",
 message:"You are precious and pure.",
 traits:["Gentle","Elegant","Sophisticated","Calm","Kind"],
 messages:["Thank You","You Are Special to Me"],
 receivers:["Partner","Friend","Family Member"]},
 
-{name:"Orange Rose",image:"orangerose.jpg",bouquetImage:"orangerose-bouquet.jpg",
+{name:"Orange Rose",image:"images/orangerose.jpg",bouquetImage:"images/orangerose-bouquet.jpg",
 meaning:"Confidence, excitement and enthusiasm.",
 message:"You inspire excitement and energy.",
 traits:["Confident","Adventurous","Fun","Unique","Cheerful"],
 messages:["Congratulations","Happy Birthday","You Are Special to Me"],
 receivers:["Partner","Friend","Classmate / Colleague"]},
 
-{name:"Aster",image:"aster.jpg",bouquetImage:"aster-bouquet.jpg",
+{name:"Aster",image:"images/aster.jpg",bouquetImage:"images/aster-bouquet.jpg",
 meaning:"Love, admiration and lasting affection.",
 message:"My admiration for you endures.",
 traits:["Elegant","Romantic","Thoughtful","Loyal"],
 messages:["Thank You","You Are Special to Me","I Love You"],
 receivers:["Partner","Friend","Family Member"]},
 
-{name:"Azalea",image:"azalea.jpg",bouquetImage:"azalea-bouquet.jpg",
+{name:"Azalea",image:"images/azalea.jpg",bouquetImage:"images/azalea-bouquet.jpg",
 meaning:"Care, thoughtfulness and concern.",
 message:"Please take care of yourself.",
 traits:["Caring","Gentle","Thoughtful","Kind","Warm"],
 messages:["Get Well Soon","I'm Always Here for You"],
 receivers:["Friend","Family Member","Partner"]},
 
-{name:"Begonia",image:"begonia.jpg",bouquetImage:"begonia-bouquet.jpg",
+{name:"Begonia",image:"images/begonia.jpg",bouquetImage:"images/begonia-bouquet.jpg",
 meaning:"Remembrance and constant thoughts.",
 message:"You are always on my mind.",
 traits:["Thoughtful","Romantic","Caring","Loyal"],
 messages:["I Miss You","You Are Special to Me"],
 receivers:["Partner","Friend","Family Member"]},
 
-{name:"Chrysanthemum",image:"chrysanthemum.jpg",bouquetImage:"chrysanthemum-bouquet.jpg",
+{name:"Chrysanthemum",image:"images/chrysanthemum.jpg",bouquetImage:"images/chrysanthemum-bouquet.jpg",
 meaning:"Long life, health and well-being.",
 message:"May you have a long and healthy life.",
 traits:["Caring","Kind","Warm","Thoughtful","Gentle"],
 messages:["Get Well Soon","Happy Birthday","Thank You"],
 receivers:["Family Member","Friend","Teacher / Mentor"]},
 
-{name:"Holly",image:"holly.jpg",bouquetImage:"holly-bouquet.jpg",
+{name:"Holly",image:"images/holly.jpg",bouquetImage:"images/holly-bouquet.jpg",
 meaning:"Good luck, happiness and protection.",
 message:"May good luck always be with you.",
 traits:["Cheerful","Kind","Warm","Confident","Unique"],
 messages:["Best of Luck","Congratulations","Happy Birthday"],
 receivers:["Friend","Family Member","Classmate / Colleague","Teacher / Mentor"]},
 
-{name:"Lily of the Valley",image:"lilyofthevalley.jpg",bouquetImage:"lilyofthevalley-bouquet.jpg",
+{name:"Lily of the Valley",image:"images/lilyofthevalley.jpg",bouquetImage:"images/lilyofthevalley-bouquet.jpg",
 meaning:"Happiness, good luck and lasting affection.",
 message:"May happiness and good luck follow you.",
 traits:["Gentle","Elegant","Romantic","Loyal","Calm"],
 messages:["You Are Special to Me"],
 receivers:["Partner","Family Member","Friend"]},
 
-{name:"Peach Blossom",image:"peachblossom.jpg",bouquetImage:"peachblossom-bouquet.jpg",
+{name:"Peach Blossom",image:"images/peachblossom.jpg",bouquetImage:"images/peachblossom-bouquet.jpg",
 meaning:"Charm, admiration and beauty.",
 message:"Your charm is truly special.",
 traits:["Elegant","Romantic","Confident","Unique","Sophisticated"],
 messages:["Happy Birthday","You Are Special to Me"],
 receivers:["Partner","Friend"]},
 
-{name:"Snowdrop",image:"snowdrop.jpg",bouquetImage:"snowdrop-bouquet.jpg",
+{name:"Snowdrop",image:"images/snowdrop.jpg",bouquetImage:"images/snowdrop-bouquet.jpg",
 meaning:"Celebration, hope and happiness.",
 message:"Let us celebrate this beautiful moment.",
 traits:["Cheerful","Fun","Friendly","Warm","Gentle","Kind"],
 messages:["Congratulations","Happy Birthday"],
 receivers:["Friend","Family Member","Classmate / Colleague"]},
 
-{name:"Stephanotis",image:"stephanotis.jpg",bouquetImage:"stephanotis-bouquet.jpg",
+{name:"Stephanotis",image:"images/stephanotis.jpg",bouquetImage:"images/stephanotis-bouquet.jpg",
 meaning:"Lasting happiness, love and commitment.",
 message:"May you have lasting happiness and love.",
 traits:["Romantic","Elegant","Sophisticated","Loyal","Dependable"],
 messages:["I Love You","You Are Special to Me","Congratulations","Best of Luck"],
 receivers:["Partner","Family Member","Friend"]},
 
-{name:"Sweet Pea",image:"sweetpea.jpg",bouquetImage:"sweetpea-bouquet.jpg",
+{name:"Sweet Pea",image:"images/sweetpea.jpg",bouquetImage:"images/sweetpea-bouquet.jpg",
 meaning:"Kindness, gratitude and gentle affection.",
 message:"Thank you for the lovely time. I wish you well.",
 traits:["Gentle","Kind","Thoughtful","Calm","Friendly","Caring"],
@@ -296,9 +295,13 @@ let results=flowers
 .map(function(f,i){
 
 return{
+
 f:f,
+
 s:score(f),
+
 i:i
+
 };
 
 })
@@ -319,9 +322,13 @@ results=flowers.slice(0,3)
 .map(function(f,i){
 
 return{
+
 f:f,
+
 s:1,
+
 i:i
+
 };
 
 });
@@ -342,8 +349,11 @@ let left=$("<div>").addClass("match-left");
 $("<img>")
 
 .attr({
+
 src:r.f.image,
+
 alt:r.f.name
+
 })
 
 .addClass("match-image")
@@ -356,7 +366,9 @@ $("<div>")
 .append(
 
 $("<div>")
+
 .addClass("match-number")
+
 .text("MATCH 0"+(i+1))
 
 )
@@ -364,6 +376,7 @@ $("<div>")
 .append(
 
 $("<h3>")
+
 .text(r.f.name)
 
 )
@@ -371,7 +384,9 @@ $("<h3>")
 .append(
 
 $("<p>")
+
 .addClass("match-reason")
+
 .text(
 
 answers.mode==="message"
@@ -424,8 +439,11 @@ $("#matchList").append(card);
 let backText=$("<a>")
 
 .attr(
+
 "href",
+
 "t.html"+(answers.mode==="traits"?"?mode=traits":"")
+
 )
 
 .addClass("back-questions")
@@ -631,22 +649,14 @@ let personalMessage=$("#personalMessage")
 .trim();
 
 
-let checkout={
-
-type:purchaseType,
-
-items:[],
-
-message:personalMessage
-
-};
+let newItem;
 
 
 /* SINGLE FLOWER */
 
 if(purchaseType==="single"){
 
-checkout.items.push({
+newItem={
 
 name:selectedFlower.name,
 
@@ -656,7 +666,7 @@ quantity:1,
 
 price:199
 
-});
+};
 
 }
 
@@ -665,7 +675,7 @@ price:199
 
 if(purchaseType==="mini"){
 
-checkout.items.push({
+newItem={
 
 name:selectedFlower.name+" Mini Bouquet",
 
@@ -675,7 +685,7 @@ quantity:1,
 
 price:199
 
-});
+};
 
 }
 
@@ -684,7 +694,7 @@ price:199
 
 if(purchaseType==="bouquet"){
 
-checkout.items.push({
+newItem={
 
 name:selectedFlower.name+" Bouquet",
 
@@ -694,9 +704,65 @@ quantity:1,
 
 price:999
 
-});
+};
 
 }
+
+
+/* CHECK IF AN ORDER ALREADY EXISTS */
+
+let existingOrder=JSON.parse(
+
+localStorage.getItem("bloomSenseCheckout")
+
+);
+
+
+/* ADD TO EXISTING ORDER */
+
+if(existingOrder && existingOrder.items){
+
+existingOrder.items.push(newItem);
+
+existingOrder.message=personalMessage;
+
+existingOrder.total=existingOrder.items.reduce(
+
+function(total,item){
+
+return total+(item.price*item.quantity);
+
+},
+
+0
+
+);
+
+
+localStorage.setItem(
+
+"bloomSenseCheckout",
+
+JSON.stringify(existingOrder)
+
+);
+
+}
+
+
+/* CREATE FIRST ORDER */
+
+else{
+
+let checkout={
+
+type:purchaseType,
+
+items:[newItem],
+
+message:personalMessage
+
+};
 
 
 checkout.total=checkout.items.reduce(
@@ -719,6 +785,8 @@ localStorage.setItem(
 JSON.stringify(checkout)
 
 );
+
+}
 
 
 location.href="checkout.html";
