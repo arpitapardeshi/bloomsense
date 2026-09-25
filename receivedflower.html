@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BloomSense | Received a Flower</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#fffdfc;
+    color:#3f3435;
+    font-family:"DM Sans",sans-serif;
+    line-height:1.6;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+    width:100%;
+    padding:14px 7%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#fffdfc;
+    border-bottom:1px solid #eee5e5;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    text-decoration:none;
+    height:55px;
+    width:auto;
+}
+
+.logo img{
+    display:block;
+    width:155px;
+    height:auto;
+    max-height:65px;
+    object-fit:contain;
+}
+
+.navbar nav{
+    display:flex;
+    gap:30px;
+    margin-left:auto;
+}
+
+.navbar nav a{
+    text-decoration:none;
+    color:#514546;
+    font-size:14px;
+    transition:0.3s ease;
+}
+
+.navbar nav a:hover{
+    color:#bf6875;
+}
+
+.btn-trolley{
+    width:44px;
+    height:44px;
+    border:1px solid #C06C74;
+    border-radius:50%;
+    color:#C06C74;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    transition:0.3s;
+    margin-left:25px;
+}
+
+.btn-trolley:hover{
+    background:#C06C74;
+    color:#fff;
+}
+
+/* =========================
+   MAIN PAGE
+========================= */
+
+.received-page{
+    max-width:1200px;
+    margin:auto;
+    padding:25px 7% 70px;
+}
+
+/* =========================
+   BACK
+========================= */
+
+.back-link{
+    display:inline-block;
+    text-decoration:none;
+    color:#756668;
+    font-size:14px;
+    margin-bottom:45px;
+    transition:0.3s ease;
+}
+
+.back-link:hover{
+    color:#bf6875;
+}
+
+/* =========================
+   SEARCH SECTION
+========================= */
+
+.search-section{
+    text-align:center;
+    padding:20px 0 55px;
+}
+
+.eyebrow{
+    color:#777;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+.search-section h1{
+    font-family:"Cormorant Garamond",serif;
+    font-size:54px;
+    line-height:1.1;
+    font-weight:600;
+    color:#3f3435;
+    margin-bottom:14px;
+}
+
+.search-section h1 span{
+    color:#bf6875;
+}
+
+.subtitle{
+    color:#786a6c;
+    font-size:15px;
+    margin-bottom:30px;
+}
+
+/* =========================
+   SEARCH BOX
+========================= */
+
+.search-box{
+    width:100%;
+    max-width:580px;
+    height:52px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    background:#ffffff;
+    border:1px solid #d9c8ca;
+    border-radius:12px;
+    padding:0 17px;
+    transition:0.3s ease;
+}
+
+.search-box:focus-within{
+    border-color:#bf6875;
+    box-shadow:0 0 0 3px rgba(191,104,117,0.08);
+}
+
+.search-icon{
+    color:#a98e92;
+    font-size:21px;
+    margin-right:10px;
+}
+
+.search-box input{
+    width:100%;
+    height:100%;
+    border:none;
+    outline:none;
+    background:transparent;
+    color:#3f3435;
+    font-family:"DM Sans",sans-serif;
+    font-size:14px;
+}
+
+.search-box input::placeholder{
+    color:#aaa0a1;
+}
+
+/* =========================
+   CONFIRM BUTTON
+========================= */
+
+#confirmFlower{
+    margin-top:18px;
+    padding:13px 30px;
+    border:none;
+    border-radius:30px;
+    background:#bf6875;
+    color:#ffffff;
+    font-family:"DM Sans",sans-serif;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.3s ease;
+}
+
+#confirmFlower:hover{
+    background:#a95461;
+    transform:translateY(-1px);
+}
+
+#confirmFlower:active{
+    transform:translateY(0);
+}
+
+.examples{
+    margin-top:13px;
+    color:#9a8d8f;
+    font-size:12px;
+}
+
+/* =========================
+   RESULT
+========================= */
+
+#flowerResult{
+    display:none;
+    max-width:1000px;
+    min-height:600px;
+    margin:25px auto 0;
+    padding:40px;
+    background:#ffffff;
+    border:1px solid #eee3e4;
+    border-radius:20px;
+    grid-template-columns:44% 56%;
+    gap:35px;
+    text-align:left;
+    box-shadow:0 12px 35px rgba(80,50,55,0.06);
+}
+
+/* =========================
+   FLOWER IMAGE
+========================= */
+
+.flower-image-box{
+    width:100%;
+    height:480px;
+    overflow:hidden;
+    border-radius:16px;
+    background:#f7eeee;
+}
+
+#resultImage{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+}
+
+/* =========================
+   FLOWER INFORMATION
+========================= */
+
+.flower-info{
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    padding:5px 10px 5px 0;
+}
+
+.result-category{
+    display:none;
+}
+
+#resultName{
+    font-family:"Cormorant Garamond",serif;
+    font-size:46px;
+    line-height:1.05;
+    font-weight:600;
+    color:#3f3435;
+    margin-bottom:18px;
+}
+
+/* =========================
+   TAGS
+========================= */
+
+.result-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-bottom:28px;
+}
+
+.result-tags span{
+    background:#f8eeee;
+    color:#9f5964;
+    border-radius:20px;
+    padding:6px 12px;
+    font-size:11px;
+}
+
+/* =========================
+   DETAILS
+========================= */
+
+.result-details{
+    display:flex;
+    flex-direction:column;
+    gap:28px;
+}
+
+.detail-block{
+    padding-bottom:0;
+    border-bottom:none;
+}
+
+.detail-title{
+    color:#555050;
+    font-size:12px;
+    font-weight:600;
+    margin-bottom:7px;
+}
+
+.detail-block > div:last-child{
+    color:#645658;
+    font-size:13px;
+    line-height:1.7;
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.result-message{
+    margin-top:32px;
+    padding:18px 20px;
+    background:#fbf3f4;
+    border-left:3px solid #bf6875;
+    border-radius:0 10px 10px 0;
+    color:#704b50;
+    font-family:"Cormorant Garamond",serif;
+    font-size:20px;
+    font-style:italic;
+}
+
+/* =========================
+   SEARCH ANOTHER FLOWER
+========================= */
+
+#searchAgain{
+    align-self:flex-start;
+    margin-top:35px;
+}
+
+.outline-button{
+    padding:12px 27px;
+    border:none;
+    border-radius:30px;
+    background:#bf6875;
+    color:#ffffff;
+    font-family:"DM Sans",sans-serif;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.3s ease;
+}
+
+.outline-button:hover{
+    background:#a95461;
+    transform:translateY(-1px);
+}
+
+.outline-button:active{
+    transform:translateY(0);
+}
+
+/* =========================
+   NOT FOUND
+========================= */
+
+#notFound{
+    display:none;
+    max-width:650px;
+    margin:45px auto 0;
+    padding:35px 25px;
+    text-align:center;
+}
+
+.not-found-line{
+    width:45px;
+    height:1px;
+    background:#bf6875;
+    margin:0 auto 20px;
+}
+
+.not-found h2{
+    font-family:"Cormorant Garamond",serif;
+    font-size:34px;
+    font-weight:600;
+    color:#3f3435;
+    margin-bottom:7px;
+}
+
+.not-found p{
+    color:#786a6c;
+    font-size:13px;
+    margin-bottom:18px;
+}
+
+#tryAgain{
+    margin-top:2px;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width:850px){
+
+    .navbar{
+        padding:14px 5%;
+    }
+
+    .logo{
+        height:50px;
+    }
+
+    .logo img{
+        width:155px;
+        max-height:60px;
+    }
+
+    .navbar nav{
+        gap:15px;
+    }
+
+    .btn-trolley{
+        margin-left:15px;
+    }
+
+    .received-page{
+        padding-left:5%;
+        padding-right:5%;
+    }
+
+    .search-section h1{
+        font-size:46px;
+    }
+
+    #flowerResult{
+        grid-template-columns:1fr;
+        max-width:700px;
+        min-height:auto;
+    }
+
+    .flower-image-box{
+        height:350px;
+    }
+
+    .flower-info{
+        padding-right:0;
+    }
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width:600px){
+
+    .navbar{
+        padding:12px 5%;
+    }
+
+    .logo{
+        height:45px;
+    }
+
+    .logo img{
+        width:135px;
+        max-height:55px;
+    }
+
+    .navbar nav{
+        display:none;
+    }
+
+    .received-page{
+        padding:20px 5% 50px;
+    }
+
+    .back-link{
+        margin-bottom:35px;
+    }
+
+    .search-section{
+        padding-top:5px;
+    }
+
+    .search-section h1{
+        font-size:38px;
+    }
+
+    .subtitle{
+        font-size:13px;
+    }
+
+    .search-box{
+        height:49px;
+    }
+
+    #flowerResult{
+        padding:25px 18px;
+        border-radius:16px;
+        margin-top:20px;
+    }
+
+    .flower-image-box{
+        height:280px;
+    }
+
+    #resultName{
+        font-size:38px;
+    }
+
+    .result-details{
+        gap:24px;
+    }
+
+    .result-message{
+        margin-top:28px;
+        font-size:18px;
+    }
+
+    #searchAgain{
+        margin-top:30px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<header class="navbar">
+
+    <a href="home.html" class="logo">
+        <img src="LOGOO.PNG.PNG" alt="BloomSense Logo">
+    </a>
+
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="buy.html">Buy Flowers</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <a href="#"
+       class="btn-trolley"
+       title="Shopping Cart">
+        <i class="fa-solid fa-cart-shopping"></i>
+    </a>
+
+</header>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="received-page">
+
+    <a href="home.html" class="back-link">← Back</a>
+
+
+    <!-- SEARCH -->
+
+    <section id="searchSection" class="search-section">
+
+        <p class="eyebrow">BLOOMSENSE</p>
+
+        <h1>
+            Received a <span>Flower?</span>
+        </h1>
+
+        <p class="subtitle">
+            Enter the name of the flower you received
+            <br>
+            and discover what it represents.
+        </p>
+
+
+        <div class="search-box">
+
+            <span class="search-icon">⌕</span>
+
+            <input
+                type="text"
+                id="flowerInput"
+                placeholder="Enter the flower name"
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <button
+            type="button"
+            id="confirmFlower"
+            class="confirm-button"
+        >
+            Confirm
+        </button>
+
+
+        <p class="examples">
+            e.g. Rose, Sunflower, Lily, Violet, Daffodil
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         RESULT
+    ========================= -->
+
+    <section id="flowerResult" class="flower-result">
+
+        <div class="flower-image-box">
+
+            <img
+                id="resultImage"
+                src=""
+                alt=""
+            >
+
+        </div>
+
+
+        <div class="flower-info">
+
+            <p id="resultCategory" class="result-category"></p>
+
+            <h2 id="resultName"></h2>
+
+            <div id="resultTags" class="result-tags"></div>
+
+            <div id="resultDetails" class="result-details"></div>
+
+            <div id="resultMessage" class="result-message"></div>
+
+            <button
+                type="button"
+                id="searchAgain"
+                class="outline-button"
+            >
+                Search Another Flower
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         NOT FOUND
+    ========================= -->
+
+    <section id="notFound" class="not-found">
+
+        <div class="not-found-line"></div>
+
+        <h2>
+            Sorry, we couldn't find it.
+        </h2>
+
+        <p>
+            Please check the spelling or try another flower.
+        </p>
+
+        <button
+            type="button"
+            id="tryAgain"
+            class="outline-button"
+        >
+            Try Again
+        </button>
+
+    </section>
+
+</main>
+
+
+<script src="receivedflower.js"></script>
+
+</body>
+</html>
