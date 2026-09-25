@@ -1,919 +1,700 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>BloomSense | Checkout</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-
 <style>
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-    background:#FBF8F3;
-    color:#2B2525;
-    font-family:'Montserrat',sans-serif;
+background:#FBF8F3;
+color:#2B2525;
+font-family:'Montserrat',sans-serif
 }
-
-
-/* ================= NAVBAR ================= */
 
 .navbar{
-    height:85px;
-    background:#FBF8F3;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 6%;
-    border-bottom:1px solid #eee5df;
+height:85px;
+background:#FBF8F3;
+display:flex;
+align-items:center;
+justify-content:flex-start;
+padding:0 6%;
+border-bottom:1px solid #eee5df
 }
 
-.logo{
-    width:145px;
-    height:auto;
-}
+.logo{width:145px;height:auto}
 
 .nav-links{
-    display:flex;
-    align-items:center;
-    gap:38px;
+display:flex;
+align-items:center;
+gap:38px;
+margin-left:auto
 }
 
 .nav-links a{
-    text-decoration:none;
-    color:#2B2525;
-    font-size:14px;
-    font-weight:500;
-    transition:.3s;
+text-decoration:none;
+color:#2B2525;
+font-size:14px;
+font-weight:500;
+transition:.3s
 }
 
-.nav-links a:hover{
-    color:#C9586D;
+.nav-links a:hover{color:#C9586D}
+
+.btn-trolley{
+width:44px;
+height:44px;
+border:1px solid #C06C74;
+border-radius:50%;
+color:#C06C74;
+display:flex;
+align-items:center;
+justify-content:center;
+text-decoration:none;
+transition:.3s;
+margin-left:25px
 }
 
-
-/* ================= PAGE HEADING ================= */
+.btn-trolley:hover{
+background:#C06C74;
+color:#fff
+}
 
 .heading{
-    text-align:center;
-    padding:65px 6% 45px;
+text-align:center;
+padding:65px 6% 45px
 }
 
 .heading h1{
-    font-family:'Cormorant Garamond',serif;
-    font-size:62px;
-    font-weight:600;
-    line-height:1;
-    color:#2B2525;
+font-family:'Cormorant Garamond',serif;
+font-size:62px;
+font-weight:600;
+line-height:1;
+color:#2B2525
 }
 
 .heading h1 span{
-    color:#C9586D;
-    font-style:italic;
+color:#C9586D;
+font-style:italic
 }
 
 .heading p{
-    margin-top:18px;
-    font-size:14px;
-    color:#817777;
+margin-top:18px;
+font-size:14px;
+color:#817777
 }
 
-
-/* ================= CHECKOUT ================= */
-
 #checkoutSection{
-    width:88%;
-    max-width:1100px;
-    margin:0 auto 80px;
+width:88%;
+max-width:1100px;
+margin:0 auto 80px
 }
 
 .checkout-container{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:35px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:35px
 }
 
-
-/* ================= BOXES ================= */
-
 .checkout-box{
-    background:#fff;
-    border:1px solid #eee4de;
-    border-radius:14px;
-    padding:35px;
+background:#fff;
+border:1px solid #eee4de;
+border-radius:14px;
+padding:35px
 }
 
 .checkout-box h2{
-    font-family:'Cormorant Garamond',serif;
-    font-size:32px;
-    font-weight:600;
-    margin-bottom:28px;
-    color:#2B2525;
+font-family:'Cormorant Garamond',serif;
+font-size:32px;
+font-weight:600;
+margin-bottom:28px;
+color:#2B2525
 }
 
 .checkout-box h2::after{
-    content:"";
-    display:block;
-    width:42px;
-    height:2px;
-    background:#C9586D;
-    margin-top:9px;
+content:"";
+display:block;
+width:42px;
+height:2px;
+background:#C9586D;
+margin-top:9px
 }
 
-
-/* ================= ORDER ================= */
-
 #orderSummary{
-    font-size:13px;
-    color:#8a7c7c;
-    margin-bottom:18px;
+font-size:13px;
+color:#8a7c7c;
+margin-bottom:18px
 }
 
 #orderItems{
-    border-top:1px solid #eee5df;
-    border-bottom:1px solid #eee5df;
-    padding:18px 0;
+border-top:1px solid #eee5df;
+border-bottom:1px solid #eee5df;
+padding:18px 0
 }
 
 .order-item{
-    display:flex;
-    align-items:center;
-    gap:18px;
-    padding:15px 0;
+display:flex;
+align-items:center;
+gap:18px;
+padding:15px 0
 }
 
-.order-item + .order-item{
-    border-top:1px solid #f0e9e4;
+.order-item+.order-item{
+border-top:1px solid #f0e9e4
 }
 
 .order-item img{
-    width:90px;
-    height:90px;
-    object-fit:cover;
-    border-radius:10px;
-    flex-shrink:0;
+width:90px;
+height:90px;
+object-fit:cover;
+border-radius:10px;
+flex-shrink:0
 }
 
-.order-item-details{
-    flex:1;
-}
+.order-item-details{flex:1}
 
 .order-item-details h3{
-    font-family:'Cormorant Garamond',serif;
-    font-size:24px;
-    font-weight:600;
-    margin-bottom:6px;
+font-family:'Cormorant Garamond',serif;
+font-size:24px;
+font-weight:600;
+margin-bottom:6px
 }
 
 .order-item-details p{
-    font-size:12px;
-    color:#817777;
-    margin:4px 0;
+font-size:12px;
+color:#817777;
+margin:4px 0
 }
 
+.cart-actions{
+display:flex;
+gap:12px;
+margin-top:20px;
+flex-wrap:wrap
+}
 
-/* ================= MESSAGE ================= */
+.cart-action-button{
+border:1px solid #C9586D;
+background:white;
+color:#C9586D;
+padding:11px 18px;
+border-radius:7px;
+font-family:'Montserrat',sans-serif;
+font-size:12px;
+cursor:pointer;
+transition:.3s
+}
+
+.cart-action-button:hover{
+background:#C9586D;
+color:white
+}
+
+.delete-order-button{
+border-color:#b74d61;
+color:#b74d61
+}
+
+.delete-order-button:hover{
+background:#b74d61;
+color:white
+}
 
 .message-title{
-    font-size:12px;
-    font-weight:600;
-    letter-spacing:1px;
-    margin-top:25px;
-    margin-bottom:9px;
-    color:#6f6262;
+font-size:12px;
+font-weight:600;
+letter-spacing:1px;
+margin-top:25px;
+margin-bottom:9px;
+color:#6f6262
 }
 
 #personalMessage{
-    width:100%;
-    min-height:70px;
-    background:#FBF8F3;
-    border:1px solid #eee4de;
-    border-radius:8px;
-    padding:13px;
-    font-size:13px;
-    color:#514848;
-    line-height:1.6;
+width:100%;
+min-height:70px;
+background:#FBF8F3;
+border:1px solid #eee4de;
+border-radius:8px;
+padding:13px;
+font-size:13px;
+color:#514848;
+line-height:1.6
 }
 
-
-/* ================= TOTAL ================= */
-
 .total-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding-top:22px;
-    margin-top:5px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding-top:22px;
+margin-top:5px
 }
 
 .total-row span:first-child{
-    font-size:14px;
-    font-weight:600;
+font-size:14px;
+font-weight:600
 }
 
 #orderTotal{
-    font-size:22px;
-    color:#C9586D;
-    font-weight:600;
+font-size:22px;
+color:#C9586D;
+font-weight:600
 }
 
-
-/* ================= FORM ================= */
-
-.form-group{
-    margin-bottom:20px;
-}
+.form-group{margin-bottom:20px}
 
 .form-group label{
-    display:block;
-    font-size:12px;
-    font-weight:600;
-    color:#6f6262;
-    margin-bottom:8px;
+display:block;
+font-size:12px;
+font-weight:600;
+color:#6f6262;
+margin-bottom:8px
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select{
-    width:100%;
-    padding:13px 14px;
-    border:1px solid #e7ddd7;
-    border-radius:7px;
-    background:#FBF8F3;
-    font-family:'Montserrat',sans-serif;
-    font-size:13px;
-    color:#2B2525;
-    outline:none;
+width:100%;
+padding:13px 14px;
+border:1px solid #e7ddd7;
+border-radius:7px;
+background:#FBF8F3;
+font-family:'Montserrat',sans-serif;
+font-size:13px;
+color:#2B2525;
+outline:none
 }
 
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus{
-    border-color:#C9586D;
+border-color:#C9586D
 }
 
 .form-group textarea{
-    min-height:95px;
-    resize:vertical;
+min-height:95px;
+resize:vertical
 }
 
 .form-row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px
 }
-
-
-/* ================= PLACE ORDER ================= */
 
 .place-order-button{
-    width:100%;
-    border:none;
-    background:#C9586D;
-    color:white;
-    padding:15px;
-    border-radius:8px;
-    font-family:'Montserrat',sans-serif;
-    font-size:13px;
-    font-weight:600;
-    letter-spacing:.5px;
-    cursor:pointer;
-    margin-top:8px;
-    transition:.3s;
+width:100%;
+border:none;
+background:#C9586D;
+color:white;
+padding:15px;
+border-radius:8px;
+font-family:'Montserrat',sans-serif;
+font-size:13px;
+font-weight:600;
+letter-spacing:.5px;
+cursor:pointer;
+margin-top:8px;
+transition:.3s
 }
 
-.place-order-button:hover{
-    background:#b74d61;
-}
-
-
-/* ================================================= */
-/* ================= CONFIRMATION ================= */
-/* ================================================= */
+.place-order-button:hover{background:#b74d61}
 
 #confirmation{
-    display:none;
-    min-height:calc(100vh - 85px);
-    width:100%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #FBF8F3 0%,
-            #F9F1EC 50%,
-            #FBF8F3 100%
-        );
-
-    align-items:center;
-    justify-content:center;
-
-    text-align:center;
-
-    padding:40px 25px;
-
-    position:relative;
+display:none;
+min-height:calc(100vh - 85px);
+width:100%;
+background:linear-gradient(135deg,#FBF8F3 0%,#F9F1EC 50%,#FBF8F3 100%);
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:40px 25px;
+position:relative
 }
 
-
-/* VERY SUBTLE SIDE DETAILS */
-
 #confirmation::before{
-    content:"";
-    position:absolute;
-    left:8%;
-    top:25%;
-    width:90px;
-    height:90px;
-    border-left:1px solid #e7cdd1;
-    border-bottom:1px solid #e7cdd1;
-    opacity:.5;
+content:"";
+position:absolute;
+left:8%;
+top:25%;
+width:90px;
+height:90px;
+border-left:1px solid #e7cdd1;
+border-bottom:1px solid #e7cdd1;
+opacity:.5
 }
 
 #confirmation::after{
-    content:"";
-    position:absolute;
-    right:8%;
-    bottom:25%;
-    width:90px;
-    height:90px;
-    border-right:1px solid #e7cdd1;
-    border-top:1px solid #e7cdd1;
-    opacity:.5;
+content:"";
+position:absolute;
+right:8%;
+bottom:25%;
+width:90px;
+height:90px;
+border-right:1px solid #e7cdd1;
+border-top:1px solid #e7cdd1;
+opacity:.5
 }
-
-
-/* CONFIRMATION CONTENT */
 
 .confirmation-content{
-    position:relative;
-    z-index:2;
-
-    width:100%;
-    max-width:850px;
-
-    padding:20px;
+position:relative;
+z-index:2;
+width:100%;
+max-width:850px;
+padding:20px
 }
-
-
-/* SMALL ELEGANT LINE */
 
 .confirmation-top-line{
-    width:55px;
-    height:1px;
-    background:#C9586D;
-
-    margin:0 auto 28px;
+width:55px;
+height:1px;
+background:#C9586D;
+margin:0 auto 28px
 }
 
-
-/* MAIN HEADING */
-
 #confirmation h2{
-
-    font-family:'Playfair Display',
-                 'Cormorant Garamond',
-                 Georgia,
-                 serif;
-
-    font-size:72px;
-
-    line-height:1.05;
-
-    font-weight:500;
-
-    letter-spacing:-1px;
-
-    color:#2B2525;
-
-    margin-bottom:20px;
+font-family:'Playfair Display','Cormorant Garamond',Georgia,serif;
+font-size:72px;
+line-height:1.05;
+font-weight:500;
+letter-spacing:-1px;
+color:#2B2525;
+margin-bottom:20px
 }
 
 #confirmation h2 span{
-    color:#C9586D;
-    font-style:italic;
-    font-weight:500;
+color:#C9586D;
+font-style:italic;
+font-weight:500
 }
-
-
-/* SECOND LINE */
 
 .confirmation-message{
-
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:31px;
-
-    font-weight:500;
-
-    color:#514343;
-
-    margin-bottom:12px;
+font-family:'Cormorant Garamond',serif;
+font-size:31px;
+font-weight:500;
+color:#514343;
+margin-bottom:12px
 }
-
-
-/* DESCRIPTION */
 
 .confirmation-text{
-
-    font-size:13px;
-
-    color:#8A7D7D;
-
-    line-height:1.8;
-
-    letter-spacing:.2px;
-
-    max-width:500px;
-
-    margin:0 auto;
+font-size:13px;
+color:#8A7D7D;
+line-height:1.8;
+letter-spacing:.2px;
+max-width:500px;
+margin:0 auto
 }
-
-
-/* BACK TO BLOOMSENSE */
 
 #backToHome{
-
-    display:inline-block;
-
-    margin-top:32px;
-
-    color:#C9586D;
-
-    font-family:'Montserrat',sans-serif;
-
-    font-size:13px;
-
-    font-weight:500;
-
-    letter-spacing:.4px;
-
-    text-decoration:none;
-
-    position:relative;
-
-    padding-bottom:6px;
-
-    transition:.3s;
+display:inline-block;
+margin-top:32px;
+color:#C9586D;
+font-family:'Montserrat',sans-serif;
+font-size:13px;
+font-weight:500;
+letter-spacing:.4px;
+text-decoration:none;
+position:relative;
+padding-bottom:6px;
+transition:.3s
 }
-
 
 #backToHome::after{
-
-    content:"";
-
-    position:absolute;
-
-    left:50%;
-
-    bottom:0;
-
-    width:0;
-
-    height:1px;
-
-    background:#C9586D;
-
-    transform:translateX(-50%);
-
-    transition:.3s;
+content:"";
+position:absolute;
+left:50%;
+bottom:0;
+width:0;
+height:1px;
+background:#C9586D;
+transform:translateX(-50%);
+transition:.3s
 }
-
 
 #backToHome:hover{
-
-    color:#9f4054;
-
-    letter-spacing:.7px;
-
+color:#9f4054;
+letter-spacing:.7px
 }
 
-
-#backToHome:hover::after{
-
-    width:100%;
-
-}
-
-
-/* ================= MOBILE ================= */
+#backToHome:hover::after{width:100%}
 
 @media(max-width:800px){
 
-    .navbar{
-        height:auto;
-        padding:18px 6%;
-        flex-direction:column;
-        gap:15px;
-    }
-
-    .nav-links{
-        gap:18px;
-        flex-wrap:wrap;
-        justify-content:center;
-    }
-
-    .heading{
-        padding:45px 6% 35px;
-    }
-
-    .heading h1{
-        font-size:45px;
-    }
-
-    .checkout-container{
-        grid-template-columns:1fr;
-    }
-
-    .checkout-box{
-        padding:25px;
-    }
-
-    .form-row{
-        grid-template-columns:1fr;
-        gap:0;
-    }
-
-    #confirmation{
-        min-height:calc(100vh - 120px);
-        padding:35px 20px;
-    }
-
-    #confirmation h2{
-        font-size:52px;
-    }
-
-    .confirmation-message{
-        font-size:26px;
-    }
-
-    #confirmation::before,
-    #confirmation::after{
-        display:none;
-    }
-
+.navbar{
+height:auto;
+padding:18px 6%;
+flex-direction:column;
+gap:15px
 }
 
+.nav-links{
+gap:18px;
+flex-wrap:wrap;
+justify-content:center;
+margin-left:0
+}
+
+.btn-trolley{margin-left:0}
+
+.heading{padding:45px 6% 35px}
+
+.heading h1{font-size:45px}
+
+.checkout-container{grid-template-columns:1fr}
+
+.checkout-box{padding:25px}
+
+.form-row{
+grid-template-columns:1fr;
+gap:0
+}
+
+#confirmation{
+min-height:calc(100vh - 120px);
+padding:35px 20px
+}
+
+#confirmation h2{font-size:52px}
+
+.confirmation-message{font-size:26px}
+
+#confirmation::before,
+#confirmation::after{display:none}
+
+}
 
 @media(max-width:500px){
 
-    .nav-links a{
-        font-size:12px;
-    }
+.nav-links a{font-size:12px}
 
-    .heading h1{
-        font-size:39px;
-    }
+.heading h1{font-size:39px}
 
-    .order-item img{
-        width:75px;
-        height:75px;
-    }
-
-    .order-item-details h3{
-        font-size:21px;
-    }
-
-    #confirmation h2{
-        font-size:43px;
-    }
-
-    .confirmation-message{
-        font-size:23px;
-    }
-
+.order-item img{
+width:75px;
+height:75px
 }
 
+.order-item-details h3{font-size:21px}
+
+#confirmation h2{font-size:43px}
+
+.confirmation-message{font-size:23px}
+
+}
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- ================= NAVBAR ================= -->
-
 <nav class="navbar">
 
-    <a href="home.html">
+<a href="home.html">
+<img src="logoo.png.png" class="logo" alt="BloomSense">
+</a>
 
-        <img
-            src="logoo.png.png"
-            class="logo"
-            alt="BloomSense"
-        >
+<div class="nav-links">
+<a href="home.html">Home</a>
+<a href="buy.html">Buy</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+</div>
 
-    </a>
-
-
-    <div class="nav-links">
-
-        <a href="home.html">Home</a>
-
-        <a href="buy.html">Buy</a>
-
-        <a href="about.html">About</a>
-
-        <a href="contact.html">Contact</a>
-
-    </div>
+<a href="#" class="btn-trolley" title="Shopping Cart">
+<i class="fa-solid fa-cart-shopping"></i>
+</a>
 
 </nav>
 
-
-
-<!-- ================= CHECKOUT HEADING ================= -->
-
 <div class="heading">
 
-    <h1>
-        Complete Your <span>Order</span>
-    </h1>
+<h1>Complete Your <span>Order</span></h1>
 
-    <p>
-        Your flowers are almost ready to speak your heart.
-    </p>
+<p>Your flowers are almost ready to speak your heart.</p>
 
 </div>
 
-
-
-<!-- ================= CHECKOUT SECTION ================= -->
-
 <section id="checkoutSection">
 
-    <div class="checkout-container">
+<div class="checkout-container">
 
+<div class="checkout-box">
 
-        <!-- YOUR ORDER -->
+<h2>Your Order</h2>
 
-        <div class="checkout-box">
+<div id="orderSummary"></div>
+<div id="orderItems"></div>
 
-            <h2>Your Order</h2>
+<div class="cart-actions">
 
-            <div id="orderSummary"></div>
+<button type="button"
+class="cart-action-button"
+id="addMoreButton">
++ Add More Flowers
+</button>
 
-            <div id="orderItems"></div>
+<button type="button"
+class="cart-action-button delete-order-button"
+id="deleteOrderButton">
+Delete Order
+</button>
 
+</div>
 
-            <div class="message-title">
-                PERSONAL MESSAGE
-            </div>
+<div class="message-title">PERSONAL MESSAGE</div>
 
+<div id="personalMessage"></div>
 
-            <div id="personalMessage">
-            </div>
+<div class="total-row">
+<span>Total</span>
+<span id="orderTotal">₹0</span>
+</div>
 
+</div>
 
-            <div class="total-row">
+<div class="checkout-box">
 
-                <span>Total</span>
+<h2>Delivery Details</h2>
 
-                <span id="orderTotal">
-                    ₹0
-                </span>
+<form id="checkoutForm">
 
-            </div>
+<div class="form-group">
 
-        </div>
+<label for="name">Full Name</label>
 
+<input type="text"
+id="name"
+placeholder="Enter your name"
+required>
 
+</div>
 
-        <!-- DELIVERY DETAILS -->
+<div class="form-row">
 
-        <div class="checkout-box">
+<div class="form-group">
 
-            <h2>Delivery Details</h2>
+<label for="phone">Phone Number</label>
 
+<input type="tel"
+id="phone"
+placeholder="Enter 10 digit phone number"
+required
+inputmode="numeric"
+maxlength="10"
+pattern="[0-9]{10}">
 
-            <form id="checkoutForm">
+</div>
 
+<div class="form-group">
 
-                <div class="form-group">
+<label for="email">Email Address</label>
 
-                    <label for="name">
-                        Full Name
-                    </label>
+<input type="email"
+id="email"
+placeholder="Enter your email"
+required>
 
-                    <input
-                        type="text"
-                        id="name"
-                        placeholder="Enter your name"
-                        required
-                    >
+</div>
 
-                </div>
+</div>
 
+<div class="form-group">
 
+<label for="address">Delivery Address</label>
 
-                <div class="form-row">
+<textarea
+id="address"
+placeholder="Enter your complete delivery address"
+required></textarea>
 
+</div>
 
-                    <div class="form-group">
+<div class="form-row">
 
-                        <label for="phone">
-                            Phone Number
-                        </label>
+<div class="form-group">
 
-                        <input
-                            type="tel"
-                            id="phone"
-                            placeholder="Enter 10 digit phone number"
-                            required
-                            inputmode="numeric"
-                            maxlength="10"
-                            pattern="[0-9]{10}"
-                        >
+<label for="city">City</label>
 
-                    </div>
+<input type="text"
+id="city"
+placeholder="Enter your city"
+required>
 
+</div>
 
+<div class="form-group">
 
-                    <div class="form-group">
+<label for="pincode">Pincode</label>
 
-                        <label for="email">
-                            Email Address
-                        </label>
+<input type="tel"
+id="pincode"
+placeholder="Enter 6 digit pincode"
+required
+inputmode="numeric"
+maxlength="6"
+pattern="[0-9]{6}">
 
-                        <input
-                            type="email"
-                            id="email"
-                            placeholder="Enter your email"
-                            required
-                        >
+</div>
 
-                    </div>
+</div>
 
-                </div>
+<div class="form-group">
 
+<label for="payment">Payment Method</label>
 
+<select id="payment" required>
 
-                <div class="form-group">
+<option value="">Select Payment Method</option>
+<option value="UPI">UPI</option>
+<option value="Card">Credit / Debit Card</option>
+<option value="Cash on Delivery">Cash on Delivery</option>
 
-                    <label for="address">
-                        Delivery Address
-                    </label>
+</select>
 
-                    <textarea
-                        id="address"
-                        placeholder="Enter your complete delivery address"
-                        required
-                    ></textarea>
+</div>
 
-                </div>
+<button type="submit" class="place-order-button">
+Place My Order
+</button>
 
+</form>
 
+</div>
 
-                <div class="form-row">
-
-
-                    <div class="form-group">
-
-                        <label for="city">
-                            City
-                        </label>
-
-                        <input
-                            type="text"
-                            id="city"
-                            placeholder="Enter your city"
-                            required
-                        >
-
-                    </div>
-
-
-
-                    <div class="form-group">
-
-                        <label for="pincode">
-                            Pincode
-                        </label>
-
-                        <input
-                            type="tel"
-                            id="pincode"
-                            placeholder="Enter 6 digit pincode"
-                            required
-                            inputmode="numeric"
-                            maxlength="6"
-                            pattern="[0-9]{6}"
-                        >
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="form-group">
-
-                    <label for="payment">
-                        Payment Method
-                    </label>
-
-                    <select id="payment" required>
-
-                        <option value="">
-                            Select Payment Method
-                        </option>
-
-                        <option value="UPI">
-                            UPI
-                        </option>
-
-                        <option value="Card">
-                            Credit / Debit Card
-                        </option>
-
-                        <option value="Cash on Delivery">
-                            Cash on Delivery
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-
-                <button
-                    type="submit"
-                    class="place-order-button"
-                >
-                    Place My Order
-                </button>
-
-
-            </form>
-
-        </div>
-
-    </div>
+</div>
 
 </section>
-
-
-
-<!-- ================================================= -->
-<!-- ================= ORDER COMPLETED =============== -->
-<!-- ================================================= -->
 
 <section id="confirmation">
 
+<div class="confirmation-content">
 
-    <div class="confirmation-content">
+<div class="confirmation-top-line"></div>
 
+<h2>Order <span>Completed</span></h2>
 
-        <div class="confirmation-top-line"></div>
+<div class="confirmation-message">
+Thank you for choosing BloomSense.
+</div>
 
+<p class="confirmation-text">
+We hope your flowers make someone's day a little more beautiful.
+</p>
 
-        <h2>
-             Order <span>Completed</span>
-        </h2>
+<a href="home.html" id="backToHome">
+Back to BloomSense
+</a>
 
-
-        <div class="confirmation-message">
-            Thank you for choosing BloomSense.
-        </div>
-
-
-        <p class="confirmation-text">
-            We hope your flowers make someone's day a little more beautiful.
-        </p>
-
-
-        <a
-            href="home.html"
-            id="backToHome"
-        >
-            Back to BloomSense
-        </a>
-
-
-    </div>
-
+</div>
 
 </section>
-
-
 
 <script src="checkout.js"></script>
 
 </body>
-
 </html>
