@@ -214,33 +214,72 @@ let flowerImage = $("#flowerImage").attr("src");
 let flowerMessage = $("#bloomMessage").text();
 
 
-let order = {
+/* CHECK IF AN ORDER ALREADY EXISTS */
 
-    type: "flower",
+let existingOrder = JSON.parse(
+    localStorage.getItem("bloomSenseCheckout")
+);
 
-    items: [
 
-        {
-            name: flowerName,
-            image: flowerImage,
-            price: 199,
-            quantity: 1
-        }
+/* CREATE NEW FLOWER */
 
-    ],
+let newFlower = {
 
-    message: flowerMessage
+    name: flowerName,
+    image: flowerImage,
+    price: 199,
+    quantity: 1
 
 };
 
 
-localStorage.setItem(
+/* ADD TO EXISTING ORDER */
 
-    "bloomSenseCheckout",
+if (existingOrder && existingOrder.items) {
 
-    JSON.stringify(order)
+    existingOrder.items.push(newFlower);
 
-);
+    existingOrder.message = flowerMessage;
+
+    existingOrder.total = existingOrder.items.reduce(
+        function(total, item) {
+            return total + (item.price * item.quantity);
+        },
+        0
+    );
+
+    localStorage.setItem(
+        "bloomSenseCheckout",
+        JSON.stringify(existingOrder)
+    );
+
+}
+
+
+/* CREATE FIRST ORDER */
+
+else {
+
+    let order = {
+
+        type: "flower",
+
+        items: [
+            newFlower
+        ],
+
+        message: flowerMessage,
+
+        total: 199
+
+    };
+
+    localStorage.setItem(
+        "bloomSenseCheckout",
+        JSON.stringify(order)
+    );
+
+}
 
 
 window.location.href = "checkout.html";
