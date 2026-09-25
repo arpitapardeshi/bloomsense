@@ -34,7 +34,7 @@ body {
     height: 85px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding: 0 7%;
     background: #fffdfb;
 }
@@ -48,6 +48,7 @@ body {
 .navbar nav {
     display: flex;
     gap: 34px;
+    margin-left: auto;
 }
 
 .navbar nav a {
@@ -60,6 +61,42 @@ body {
 
 .navbar nav a:hover {
     color: #c77886;
+}
+
+
+/* CART */
+
+.btn-trolley {
+
+    width: 44px;
+    height: 44px;
+
+    border: 1px solid #C06C74;
+
+    border-radius: 50%;
+
+    color: #C06C74;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-decoration: none;
+
+    transition: 0.3s;
+
+    margin-left: 25px;
+
+}
+
+.btn-trolley:hover {
+
+    background: #C06C74;
+
+    color: #fff;
+
 }
 
 
@@ -286,7 +323,7 @@ body {
 
     <div class="logo">
         <a href="home.html">
-            <img src="logoo.png.png" alt="BloomSense Logo">
+            <img src="LOGOO.PNG.PNG" alt="BloomSense Logo">
         </a>
     </div>
 
@@ -296,6 +333,15 @@ body {
         <a href="about.html">About Us</a>
         <a href="contact.html">Contact</a>
     </nav>
+
+
+    <a href="#"
+       class="btn-trolley"
+       title="Shopping Cart">
+
+        <i class="fa-solid fa-cart-shopping"></i>
+
+    </a>
 
 </header>
 
