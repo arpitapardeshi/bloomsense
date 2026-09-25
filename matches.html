@@ -13,6 +13,9 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <style>
@@ -31,13 +34,17 @@ height:85px;
 padding:10px 6%;
 display:flex;
 align-items:center;
-justify-content:space-between;
+justify-content:flex-start;
 border-bottom:1px solid #eee3df
 }
 
 .logo{width:145px}
 
-.nav-links{display:flex;gap:32px}
+.nav-links{
+display:flex;
+gap:32px;
+margin-left:auto
+}
 
 .nav-links a{
 text-decoration:none;
@@ -46,6 +53,25 @@ font-size:14px
 }
 
 .nav-links a:hover{color:#C9586D}
+
+.btn-trolley{
+width:44px;
+height:44px;
+border:1px solid #C06C74;
+border-radius:50%;
+color:#C06C74;
+display:flex;
+align-items:center;
+justify-content:center;
+text-decoration:none;
+transition:0.3s;
+margin-left:25px
+}
+
+.btn-trolley:hover{
+background:#C06C74;
+color:#fff
+}
 
 .page{
 max-width:1100px;
@@ -377,6 +403,12 @@ text-align:left
 <a href="contact.html">Contact</a>
 
 </div>
+
+<a href="#"
+   class="btn-trolley"
+   title="Shopping Cart">
+    <i class="fa-solid fa-cart-shopping"></i>
+</a>
 
 </nav>
 
