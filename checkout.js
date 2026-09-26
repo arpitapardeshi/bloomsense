@@ -1,433 +1,253 @@
-$(function(){
+$(function () {
 
-    /* ================= LOAD ORDER ================= */
-
-    let order = JSON.parse(
-        localStorage.getItem("bloomSenseCheckout")
-    );
-
-
-    /* ================= ADD MORE FLOWERS ================= */
-
-    $("#addMoreButton").click(function(){
-
-        if(window.history.length > 1){
-
+    // Add More Flowers button click handler
+    $("#addMoreButton").click(function () {
+        if (window.history.length > 1) {
             window.history.back();
+        } else {
+            window.location.href = "categories.html";
+        }
+    });
+    function renderOrder() {
+        // Read order from 'bloomSenseCheckout', or fallback to 'cart' from buy page
+        let storedData = localStorage.getItem("bloomSenseCheckout") || localStorage.getItem("cart");
+        let order = null;
 
-        }else{
-
-            window.location.href = "home.html";
-
+        if (storedData) {
+            try {
+                order = JSON.parse(storedData);
+            } catch (e) {
+                order = null;
+            }
         }
 
-    });
+        // Standardize structure if data came directly from buy page cart array
+        if (Array.isArray(order)) {
+            order = { items: order, type: "bouquet", message: "" };
+        }
 
+        if (!order || !order.items || !order.items.length) {
+            $("#orderItems").html(
+                "<p style='padding:15px 0; color:#817777;'>No flower has been selected.</p>"
+            );
+            $("#orderTotal").text("₹0");
+            $("#orderSummary").text("0 items selected");
+            $("#personalMessage").text("Write a message to send with a bouquet.");
+            return;
+        }
 
-    /* ================= DISPLAY ORDER ================= */
-
-    function displayOrder(){
-
-        order = JSON.parse(
-            localStorage.getItem("bloomSenseCheckout")
-        );
-
+        let total = 0;
+        let totalQuantity = 0;
 
         $("#orderItems").empty();
 
-
-        if(!order || !order.items || !order.items.length){
-
-            $("#orderItems").html(
-                "<p>No flower has been selected.</p>"
-            );
-
-            $("#orderSummary").text(
-                "No flowers selected"
-            );
-
-            $("#orderTotal").text("₹0");
-
-            $("#personalMessage").text(
-                "No personal message added."
-            );
-
-            return;
-        }
-
-
-        let total = 0;
-
-        let totalQuantity = 0;
-
-
-        order.items.forEach(function(item,index){
-
+        order.items.forEach(function (item, index) {
+            let name = item.name || item.title || "Fresh Bouquet";
             let price = Number(item.price) || 199;
-
             let quantity = Number(item.quantity) || 1;
-
             let itemTotal = price * quantity;
 
-
             total += itemTotal;
-
             totalQuantity += quantity;
 
+            let itemBox = $("<div>").addClass("order-item");
 
-            let itemBox = $("<div>")
-                .addClass("order-item");
+            let image = $("<img>").attr({
+                src: item.image || "logoo.png.png",
+                alt: name
+            });
 
+            let details = $("<div>").addClass("order-item-details");
 
-            let image = $("<img>")
-                .attr({
-                    src:item.image,
-                    alt:item.name
+            $("<h3>").text(name).appendTo(details);
+
+            $("<p>").text("Price: ₹" + price).appendTo(details);
+
+            // Quantity & Controls Row (Trash icon removed)
+            let qtyContainer = $("<p>").css({
+                "display": "flex",
+                "align-items": "center",
+                "gap": "8px",
+                "margin-top": "6px"
+            });
+
+            let minusBtn = $("<button>")
+                .text("-")
+                .attr("type", "button")
+                .css({
+                    "padding": "2px 8px",
+                    "border": "1px solid #d1c7c1",
+                    "background": "#FBF8F3",
+                    "cursor": "pointer",
+                    "border-radius": "4px",
+                    "font-size": "12px"
+                })
+                .click(function () {
+                    updateQuantity(index, -1);
                 });
 
+            let qtySpan = $("<span>")
+                .text("Qty: " + quantity)
+                .css({ "font-weight": "600", "color": "#2B2525" });
 
-            let details = $("<div>")
-                .addClass("order-item-details");
+            let plusBtn = $("<button>")
+                .text("+")
+                .attr("type", "button")
+                .css({
+                    "padding": "2px 8px",
+                    "border": "1px solid #d1c7c1",
+                    "background": "#FBF8F3",
+                    "cursor": "pointer",
+                    "border-radius": "4px",
+                    "font-size": "12px"
+                })
+                .click(function () {
+                    updateQuantity(index, 1);
+                });
 
-
-            $("<h3>")
-                .text(item.name)
-                .appendTo(details);
-
-
-            $("<p>")
-                .text("Price: ₹" + price)
-                .appendTo(details);
-
-
-            $("<p>")
-                .text("Quantity: " + quantity)
-                .appendTo(details);
-
+            qtyContainer.append(minusBtn, qtySpan, plusBtn);
+            details.append(qtyContainer);
 
             $("<p>")
                 .text("Item Total: ₹" + itemTotal)
+                .css({ "font-weight": "600", "margin-top": "4px", "color": "#2B2525" })
                 .appendTo(details);
 
-
-            let deleteButton = $("<button>")
-                .attr({
-                    type:"button"
-                })
-                .addClass("item-delete-button")
-                .text("Delete");
-
-
-            deleteButton.click(function(){
-
-                let confirmDelete = confirm(
-                    "Are you sure you want to delete " +
-                    item.name +
-                    "?"
-                );
-
-
-                if(!confirmDelete){
-                    return;
-                }
-
-
-                order.items.splice(index,1);
-
-
-                if(order.items.length === 0){
-
-                    localStorage.removeItem(
-                        "bloomSenseCheckout"
-                    );
-
-                    localStorage.removeItem(
-                        "bloomSenseCustomerOrder"
-                    );
-
-                    order = null;
-
-                }else{
-
-                    order.total = order.items.reduce(
-                        function(total,item){
-
-                            let price =
-                                Number(item.price) || 199;
-
-                            let quantity =
-                                Number(item.quantity) || 1;
-
-                            return total + (price * quantity);
-
-                        },
-                        0
-                    );
-
-
-                    localStorage.setItem(
-                        "bloomSenseCheckout",
-                        JSON.stringify(order)
-                    );
-
-                }
-
-
-                displayOrder();
-
-            });
-
-
-            itemBox.append(
-                image,
-                details,
-                deleteButton
-            );
-
-
+            itemBox.append(image, details);
             $("#orderItems").append(itemBox);
-
         });
 
-
-        $("#orderSummary").text(
-            totalQuantity === 1
-                ? "1 flower selected"
-                : totalQuantity + " flowers selected"
-        );
-
-
-        $("#orderTotal").text(
-            "₹" + total
-        );
-
-
-        if(order.message){
-
-            $("#personalMessage")
-                .text(order.message);
-
-        }else{
-
-            $("#personalMessage")
-                .text(
-                    "No personal message added."
-                );
-
+        // Summary Label
+        if (order.type === "bouquet" && order.items.length === 1) {
+            $("#orderSummary").text(totalQuantity + " bouquet" + (totalQuantity > 1 ? "s" : "") + " selected");
+        } else if (totalQuantity === 1) {
+            $("#orderSummary").text("1 flower selected");
+        } else {
+            $("#orderSummary").text(totalQuantity + " flowers selected");
         }
 
+        $("#orderTotal").text("₹" + total);
+
+        if (order.message && order.message.trim() !== "") {
+            $("#personalMessage").text(order.message);
+        } else {
+            $("#personalMessage").text("No personal message added.");
+        }
     }
 
+    // Helper function to safely read active order data
+    function getActiveOrder() {
+        let isCheckout = !!localStorage.getItem("bloomSenseCheckout");
+        let storedKey = isCheckout ? "bloomSenseCheckout" : "cart";
+        let rawData = localStorage.getItem(storedKey);
+        
+        if (!rawData) return { order: null, key: storedKey };
 
-    displayOrder();
+        let parsed = JSON.parse(rawData);
 
-
-    /* ================= DELETE ENTIRE ORDER ================= */
-
-    $("#deleteOrderButton").click(function(){
-
-        let confirmDelete = confirm(
-            "Are you sure you want to delete this order?"
-        );
-
-
-        if(!confirmDelete){
-            return;
+        if (Array.isArray(parsed)) {
+            parsed = { items: parsed, type: "bouquet", message: "" };
         }
 
+        return { order: parsed, key: storedKey };
+    }
 
-        localStorage.removeItem(
-            "bloomSenseCheckout"
-        );
+    // Function to update quantity (+ or -). Reaching 0 quantity removes the item automatically.
+    function updateQuantity(index, change) {
+        let { order, key } = getActiveOrder();
 
+        if (!order || !order.items || !order.items[index]) return;
 
-        localStorage.removeItem(
-            "bloomSenseCustomerOrder"
-        );
+        order.items[index].quantity = (Number(order.items[index].quantity) || 1) + change;
 
+        if (order.items[index].quantity <= 0) {
+            order.items.splice(index, 1);
+        }
 
-        order = null;
+        if (key === "cart" && !localStorage.getItem("bloomSenseCheckout")) {
+            localStorage.setItem("cart", JSON.stringify(order.items));
+        } else {
+            localStorage.setItem("bloomSenseCheckout", JSON.stringify(order));
+        }
 
+        renderOrder();
+    }
+    // Initial Render
+    renderOrder();
 
-        displayOrder();
+    /* INPUT RESTRICTIONS */
 
+    $("#phone").on("input", function () {
+        this.value = this.value.replace(/\D/g, "").slice(0, 10);
     });
 
-
-    /* ================= PHONE ================= */
-
-    $("#phone").on("input",function(){
-
-        this.value = this.value
-            .replace(/\D/g,"")
-            .slice(0,10);
-
+    $("#pincode").on("input", function () {
+        this.value = this.value.replace(/\D/g, "").slice(0, 6);
     });
 
+    /* FORM SUBMISSION */
 
-    /* ================= PINCODE ================= */
-
-    $("#pincode").on("input",function(){
-
-        this.value = this.value
-            .replace(/\D/g,"")
-            .slice(0,6);
-
-    });
-
-
-    /* ================= FORM ================= */
-
-    $("#checkoutForm").submit(function(e){
-
+    $("#checkoutForm").submit(function (e) {
         e.preventDefault();
 
+        let storedData = localStorage.getItem("bloomSenseCheckout") || localStorage.getItem("cart");
+        let rawOrder = storedData ? JSON.parse(storedData) : null;
+        let order = Array.isArray(rawOrder) ? { items: rawOrder } : rawOrder;
 
-        order = JSON.parse(
-            localStorage.getItem(
-                "bloomSenseCheckout"
-            )
-        );
-
-
-        if(!order || !order.items || !order.items.length){
-
-            alert(
-                "Please add at least one flower before placing your order."
-            );
-
+        if (!order || !order.items || !order.items.length) {
+            alert("Your cart is empty. Please add a product before checking out.");
             return;
         }
-
 
         let name = $("#name").val().trim();
-
         let email = $("#email").val().trim();
-
         let phone = $("#phone").val().trim();
-
         let address = $("#address").val().trim();
-
         let city = $("#city").val().trim();
-
         let pincode = $("#pincode").val().trim();
-
         let payment = $("#payment").val();
 
-
-        if(
-            !name ||
-            !email ||
-            !phone ||
-            !address ||
-            !city ||
-            !pincode ||
-            !payment
-        ){
-
-            alert(
-                "Please fill all delivery details."
-            );
-
+        if (!name || !email || !phone || !address || !city || !pincode || !payment) {
+            alert("Please fill all delivery details.");
             return;
         }
 
-
-        if(phone.length !== 10){
-
-            alert(
-                "Please enter a valid 10 digit phone number."
-            );
-
+        if (phone.length !== 10) {
+            alert("Please enter a valid 10 digit phone number.");
             return;
         }
 
-
-        if(pincode.length !== 6){
-
-            alert(
-                "Please enter a valid 6 digit pincode."
-            );
-
+        if (pincode.length !== 6) {
+            alert("Please enter a valid 6 digit pincode.");
             return;
         }
-
-
-        let total = 0;
-
-
-        order.items.forEach(function(item){
-
-            let price = Number(item.price) || 199;
-
-            let quantity = Number(item.quantity) || 1;
-
-            total += price * quantity;
-
-        });
-
 
         let customerOrder = {
-
-            name:name,
-
-            email:email,
-
-            phone:phone,
-
-            address:address,
-
-            city:city,
-
-            pincode:pincode,
-
-            payment:payment,
-
-            items:order.items,
-
-            message:order.message,
-
-            total:total
-
+            name: name,
+            email: email,
+            phone: phone,
+            address: address,
+            city: city,
+            pincode: pincode,
+            payment: payment,
+            items: order.items,
+            message: order.message || "",
+            total: $("#orderTotal").text()
         };
 
-
-        localStorage.setItem(
-
-            "bloomSenseCustomerOrder",
-
-            JSON.stringify(customerOrder)
-
-        );
-
-
+        localStorage.setItem("bloomSenseCustomerOrder", JSON.stringify(customerOrder));
+        localStorage.removeItem("bloomSenseCheckout");
+        localStorage.removeItem("cart");
         $(".heading").fadeOut(400);
-
-
-        $("#checkoutSection").fadeOut(
-            500,
-            function(){
-
-                $("#confirmation")
-                    .css("display","flex")
-                    .hide()
-                    .fadeIn(700);
-
-            }
-        );
-
+        $("#checkoutSection").fadeOut(500, function () {
+            $("#confirmation").css("display", "flex").hide().fadeIn(700);
+        });
     });
 
-
-    /* ================= BACK TO HOME ================= */
-
-    $("#backToHome").click(function(e){
-
+    /* BACK TO HOME */
+    $("#backToHome").click(function (e) {
         e.preventDefault();
-
-        window.location.href =
-            "home.html";
-
+        window.location.href = "index.html";
     });
 
 });
