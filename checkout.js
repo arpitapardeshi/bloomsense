@@ -61,7 +61,7 @@ $(function(){
         let totalQuantity = 0;
 
 
-        order.items.forEach(function(item){
+        order.items.forEach(function(item,index){
 
             let price = Number(item.price) || 199;
 
@@ -110,9 +110,78 @@ $(function(){
                 .appendTo(details);
 
 
+            let deleteButton = $("<button>")
+                .attr({
+                    type:"button"
+                })
+                .addClass("item-delete-button")
+                .text("Delete");
+
+
+            deleteButton.click(function(){
+
+                let confirmDelete = confirm(
+                    "Are you sure you want to delete " +
+                    item.name +
+                    "?"
+                );
+
+
+                if(!confirmDelete){
+                    return;
+                }
+
+
+                order.items.splice(index,1);
+
+
+                if(order.items.length === 0){
+
+                    localStorage.removeItem(
+                        "bloomSenseCheckout"
+                    );
+
+                    localStorage.removeItem(
+                        "bloomSenseCustomerOrder"
+                    );
+
+                    order = null;
+
+                }else{
+
+                    order.total = order.items.reduce(
+                        function(total,item){
+
+                            let price =
+                                Number(item.price) || 199;
+
+                            let quantity =
+                                Number(item.quantity) || 1;
+
+                            return total + (price * quantity);
+
+                        },
+                        0
+                    );
+
+
+                    localStorage.setItem(
+                        "bloomSenseCheckout",
+                        JSON.stringify(order)
+                    );
+
+                }
+
+
+                displayOrder();
+
+            });
+
+
             itemBox.append(
                 image,
-                details
+                details,
+                deleteButton
             );
 
 
@@ -153,7 +222,7 @@ $(function(){
     displayOrder();
 
 
-    /* ================= DELETE ORDER ================= */
+    /* ================= DELETE ENTIRE ORDER ================= */
 
     $("#deleteOrderButton").click(function(){
 
