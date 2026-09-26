@@ -33,12 +33,22 @@ nav a.active:after{
     bottom:-23px;height:3px;background:#b95e6d
 }
 .cart{
-    width:64px;height:64px;border:1px solid #cdaeb2;
-    border-radius:50%;display:flex!important;
-    align-items:center;justify-content:center;
-    font-size:22px!important;color:#222!important;margin-left:4px
+    width:44px;height:44px;
+    border:1px solid #C06C74;
+    border-radius:50%;
+    color:#C06C74!important;
+    display:flex!important;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    transition:0.3s;
+    margin-left:25px;
+    font-size:16px!important
 }
-.cart:hover{background:#f9e5e7}
+.cart:hover{
+    background:#C06C74;
+    color:#fff!important
+}
 .cart:after{display:none!important}
 
 /* MAIN */
@@ -316,7 +326,7 @@ footer{
                 Fill out the form and we’ll get back to you soon.
             </p>
 
-            <form id="contactForm">
+            <form id="contactForm" novalidate>
 
                 <!-- NAME + EMAIL SIDE BY SIDE -->
                 <div class="name-email">
