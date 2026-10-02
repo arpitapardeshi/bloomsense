@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloomSense - Explore Flowers</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fbf7f2;
+            color: #342426;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .wrapper-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        #flowerPage {
+            display: block;
+            width: 100%;
+            min-height: 900px;
+            border: none;
+            background: #fbf7f2;
+        }
+
+        /* Bottom navigation */
+        .flower-wrapper {
+            display: none;
+            padding: 15px 30px 60px;
+        }
+
+        .wrapper-line {
+            width: 100%;
+            height: 1px;
+            background: #e6d8cf;
+            margin-bottom: 22px;
+        }
+
+        .wrapper-footer {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            background: #f5eee7;
+            border: 1px solid #eaded5;
+            border-radius: 18px;
+            padding: 20px;
+        }
+
+        .wrapper-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px;
+            text-decoration: none;
+            color: #342426;
+            border-radius: 14px;
+            transition: background 0.3s ease,
+                        transform 0.3s ease;
+            min-width: 0;
+        }
+
+        .wrapper-link:hover {
+            background: #eee1d7;
+            transform: translateY(-2px);
+        }
+
+        .wrapper-icon {
+            width: 52px;
+            height: 52px;
+            min-width: 52px;
+            border-radius: 50%;
+            background: #ead4d2;
+            color: #8c5156;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+        }
+
+        .wrapper-text {
+            flex: 1;
+        }
+
+        .wrapper-text h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 25px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .wrapper-text p {
+            font-size: 12px;
+            line-height: 1.6;
+            color: #806d6c;
+        }
+
+        .wrapper-arrow {
+            color: #8c5156;
+            font-size: 16px;
+        }
+
+        @media (max-width: 800px) {
+            #flowerPage {
+                min-height: 1000px;
+            }
+
+            .flower-wrapper {
+                padding: 15px 15px 40px;
+            }
+
+            .wrapper-footer {
+                grid-template-columns: 1fr;
+                gap: 8px;
+                padding: 12px;
+            }
+
+            .wrapper-link {
+                padding: 15px 10px;
+            }
+
+            .wrapper-text h3 {
+                font-size: 23px;
+            }
+
+            .wrapper-text p {
+                font-size: 11px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .wrapper-icon {
+                width: 44px;
+                height: 44px;
+                min-width: 44px;
+                font-size: 18px;
+            }
+
+            .wrapper-text h3 {
+                font-size: 21px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper-container">
+
+        <!-- Initial page -->
+        <iframe
+            id="flowerPage"
+            src="Search.html"
+            title="BloomSense Flower Selection">
+        </iframe>
+
+        <!-- Bottom navigation -->
+        <div class="flower-wrapper" id="flowerWrapper">
+
+            <div class="wrapper-line"></div>
+
+            <div class="wrapper-footer">
+
+                <!-- Search.html -->
+                <a href="Search.html"
+                   class="wrapper-link"
+                   id="occasionLink">
+
+                    <i class="fa-solid fa-arrow-left wrapper-arrow"></i>
+
+                    <div class="wrapper-icon">
+                        <i class="fa-regular fa-calendar"></i>
+                    </div>
+
+                    <div class="wrapper-text">
+                        <h3>Shop by Occasion</h3>
+                        <p>Explore flowers for every moment</p>
+                    </div>
+
+                </a>
+
+                <!-- Categories.html -->
+                <a href="Categories.html"
+                   class="wrapper-link"
+                   id="categoriesLink">
+
+                    <div class="wrapper-icon">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+
+                    <div class="wrapper-text">
+                        <h3>Explore Flowers</h3>
+                        <p>Discover your perfect flower</p>
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right wrapper-arrow"></i>
+
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const flowerPage = document.getElementById("flowerPage");
+        const flowerWrapper = document.getElementById("flowerWrapper");
+
+        function updateWrapperVisibility() {
+            try {
+                const pageWindow = flowerPage.contentWindow;
+                const currentPath =
+                    pageWindow.location.pathname.toLowerCase();
+
+                const currentPage = currentPath
+                    .substring(currentPath.lastIndexOf("/") + 1);
+
+                // SEARCH.HTML:
+                // Show navigation only on the initial occasion screen.
+                if (currentPage === "search.html") {
+                    const homePage =
+                        pageWindow.document.getElementById("homePage");
+
+                    if (
+                        homePage &&
+                        homePage.classList.contains("active")
+                    ) {
+                        flowerWrapper.style.display = "block";
+                    } else {
+                        flowerWrapper.style.display = "none";
+                    }
+
+                    return;
+                }
+
+                // CATEGORIES.HTML:
+                // Show navigation while the category selection screen
+                // itself is displayed.
+                if (currentPage === "categories.html") {
+                    flowerWrapper.style.display = "block";
+                    return;
+                }
+
+                // Any other page, including flower listings,
+                // flower details, checkout, and confirmation.
+                flowerWrapper.style.display = "none";
+
+            } catch (error) {
+                // Hide navigation if the current page cannot be checked.
+                flowerWrapper.style.display = "none";
+            }
+        }
+
+        // Check when a new page loads inside the iframe.
+        flowerPage.addEventListener("load", updateWrapperVisibility);
+
+        // Detect changes between sections inside Search.html,
+        // even though its filename does not change.
+        setInterval(updateWrapperVisibility, 300);
+
+        // Open Search.html.
+        document.getElementById("occasionLink")
+            .addEventListener("click", function(event) {
+                event.preventDefault();
+                flowerPage.src = "Search.html";
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            });
+
+        // Open Categories.html.
+        document.getElementById("categoriesLink")
+            .addEventListener("click", function(event) {
+                event.preventDefault();
+                flowerPage.src = "Categories.html";
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            });
+    </script>
+
+</body>
+</html>
