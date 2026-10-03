@@ -31,7 +31,7 @@
         #flowerPage {
             display: block;
             width: 100%;
-            min-height: 900px;
+            height: 900px;
             border: none;
             background: #fbf7f2;
         }
@@ -113,10 +113,6 @@
         }
 
         @media (max-width: 800px) {
-            #flowerPage {
-                min-height: 1000px;
-            }
-
             .flower-wrapper {
                 padding: 15px 15px 40px;
             }
@@ -156,7 +152,6 @@
 </head>
 
 <body>
-    <!-- BloomSense Buy My Flower page -->
 
     <div class="wrapper-container">
 
@@ -164,7 +159,8 @@
         <iframe
             id="flowerPage"
             src="search.html"
-            title="BloomSense Flower Selection">
+            title="BloomSense Flower Selection"
+            scrolling="no">
         </iframe>
 
         <!-- Bottom navigation -->
@@ -219,6 +215,38 @@
         const flowerPage = document.getElementById("flowerPage");
         const flowerWrapper = document.getElementById("flowerWrapper");
 
+        // Adjust iframe height to the content inside it.
+        // This removes the separate iframe scrollbar.
+        function resizeFlowerPage() {
+            try {
+                const pageDocument = flowerPage.contentDocument;
+
+                if (!pageDocument) {
+                    return;
+                }
+
+                const pageBody = pageDocument.body;
+                const pageHtml = pageDocument.documentElement;
+
+                const contentHeight = Math.max(
+                    pageBody.scrollHeight,
+                    pageBody.offsetHeight,
+                    pageHtml.scrollHeight,
+                    pageHtml.offsetHeight,
+                    pageHtml.clientHeight
+                );
+
+                flowerPage.style.height = contentHeight + "px";
+
+                // Prevent a separate scrollbar inside the loaded page.
+                pageHtml.style.overflowY = "hidden";
+                pageBody.style.overflowY = "hidden";
+
+            } catch (error) {
+                // Ignore errors if the page cannot be accessed.
+            }
+        }
+
         function updateWrapperVisibility() {
             try {
                 const pageWindow = flowerPage.contentWindow;
@@ -265,11 +293,18 @@
         }
 
         // Check when a new page loads inside the iframe.
-        flowerPage.addEventListener("load", updateWrapperVisibility);
+        flowerPage.addEventListener("load", function() {
+            resizeFlowerPage();
+            updateWrapperVisibility();
+        });
 
         // Detect changes between sections inside Search.html,
         // even though its filename does not change.
-        setInterval(updateWrapperVisibility, 300);
+        // Also update the iframe height when its content changes.
+        setInterval(function() {
+            resizeFlowerPage();
+            updateWrapperVisibility();
+        }, 300);
 
         // Open Search.html.
         document.getElementById("occasionLink")
