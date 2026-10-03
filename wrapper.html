@@ -223,9 +223,11 @@
         const flowerWrapper = document.getElementById("flowerWrapper");
 
         const measurementHeight = 900;
+        let lastPageUrl = "";
 
-        // Measure every page from the same baseline height.
-        // Never measure from the previously expanded iframe height.
+        // Measure the page from a consistent baseline.
+        // Do not allow the previous iframe height to cause
+        // the next measurement to grow indefinitely.
         function resizeFlowerPage() {
             try {
                 const pageDocument = flowerPage.contentDocument;
@@ -237,28 +239,64 @@
                 const pageBody = pageDocument.body;
                 const pageHtml = pageDocument.documentElement;
 
-                // Reset to the same measurement height each time.
-                // These changes happen synchronously, before the browser
-                // paints, so the iframe does not visibly jump.
+                // Temporarily return to the same measurement height.
                 flowerPage.style.height = measurementHeight + "px";
 
-                const contentHeight = Math.max(
+                // Force layout calculation at the baseline height.
+                pageHtml.getBoundingClientRect();
+
+                let contentHeight = Math.max(
                     pageBody.scrollHeight,
-                    pageHtml.scrollHeight,
                     pageBody.offsetHeight,
+                    pageHtml.scrollHeight,
                     pageHtml.offsetHeight
                 );
 
-                // Keep the full page visible, including long flower lists.
-                const newHeight = Math.max(
-                    measurementHeight,
-                    contentHeight
+                // Also check the bottoms of content elements.
+                // This helps with pages containing positioned elements.
+                const elements = pageBody.querySelectorAll("*");
+
+                elements.forEach(function(element) {
+                    const style =
+                        pageDocument.defaultView.getComputedStyle(element);
+
+                    // Ignore fixed elements that are not part
+                    // of the normal page content.
+                    if (style.position === "fixed") {
+                        return;
+                    }
+
+                    const rect = element.getBoundingClientRect();
+
+                    const elementBottom =
+                        rect.bottom + pageDocument.defaultView.scrollY;
+
+                    if (Number.isFinite(elementBottom)) {
+                        contentHeight = Math.max(
+                            contentHeight,
+                            elementBottom
+                        );
+                    }
+                });
+
+                // Add a small allowance for bottom padding and borders.
+                const newHeight = Math.ceil(
+                    Math.max(measurementHeight, contentHeight + 10)
                 );
 
-                flowerPage.style.height = newHeight + "px";
+                // Only apply a height change when necessary.
+                // Avoid unnecessary repeated layout changes on scroll.
+                if (
+                    Math.abs(
+                        flowerPage.getBoundingClientRect().height -
+                        newHeight
+                    ) > 2
+                ) {
+                    flowerPage.style.height = newHeight + "px";
+                }
 
             } catch (error) {
-                // Keep the current page visible if measurement fails.
+                // Keep the currently loaded page if measurement fails.
             }
         }
 
@@ -293,7 +331,7 @@
                     return;
                 }
 
-                // Hide navigation on other pages.
+                // Hide navigation on all other pages.
                 flowerWrapper.style.display = "none";
 
             } catch (error) {
@@ -301,30 +339,52 @@
             }
         }
 
-        // Run measurements after a page loads.
+        // Handle a new page loaded inside the iframe.
         flowerPage.addEventListener("load", function() {
+            lastPageUrl = flowerPage.contentWindow.location.href;
+
             resizeFlowerPage();
             updateWrapperVisibility();
 
+            // Measure again after the browser has applied page styles.
             requestAnimationFrame(function() {
                 resizeFlowerPage();
                 updateWrapperVisibility();
             });
+
+            // Check once more after images and other resources settle.
+            setTimeout(function() {
+                resizeFlowerPage();
+                updateWrapperVisibility();
+            }, 300);
         });
 
-        // Recheck dynamic content and screen visibility.
-        // Height measurement always starts from 900px.
+        // Recheck navigation visibility and page size.
+        // The iframe is measured from the same baseline each time.
         setInterval(function() {
-            resizeFlowerPage();
-            updateWrapperVisibility();
-        }, 500);
+            try {
+                const currentUrl = flowerPage.contentWindow.location.href;
+
+                if (currentUrl !== lastPageUrl) {
+                    lastPageUrl = currentUrl;
+                    resizeFlowerPage();
+                } else {
+                    resizeFlowerPage();
+                }
+
+                updateWrapperVisibility();
+
+            } catch (error) {
+                // Ignore temporary navigation or loading errors.
+            }
+        }, 1000);
 
         // Shop by Occasion.
         document.getElementById("occasionLink")
             .addEventListener("click", function(event) {
                 event.preventDefault();
 
-                flowerPage.src = "Search.html";
+                flowerPage.src = "search.html";
 
                 window.scrollTo({
                     top: 0,
