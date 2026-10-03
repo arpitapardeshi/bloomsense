@@ -34,19 +34,20 @@
             height: 900px;
             border: none;
             background: #fbf7f2;
+            overflow: hidden;
         }
 
         /* Bottom navigation */
         .flower-wrapper {
             display: none;
-            padding: 15px 30px 60px;
+            padding: 8px 30px 30px;
         }
 
         .wrapper-line {
             width: 100%;
             height: 1px;
             background: #e6d8cf;
-            margin-bottom: 22px;
+            margin-bottom: 12px;
         }
 
         .wrapper-footer {
@@ -114,7 +115,7 @@
 
         @media (max-width: 800px) {
             .flower-wrapper {
-                padding: 15px 15px 40px;
+                padding: 8px 15px 25px;
             }
 
             .wrapper-footer {
@@ -155,7 +156,7 @@
 
     <div class="wrapper-container">
 
-        <!-- Initial page -->
+        <!-- Page displayed inside the wrapper -->
         <iframe
             id="flowerPage"
             src="search.html"
@@ -170,7 +171,7 @@
 
             <div class="wrapper-footer">
 
-                <!-- Search.html -->
+                <!-- Shop by Occasion -->
                 <a href="search.html"
                    class="wrapper-link"
                    id="occasionLink">
@@ -188,7 +189,7 @@
 
                 </a>
 
-                <!-- Categories.html -->
+                <!-- Explore Flowers -->
                 <a href="categories.html"
                    class="wrapper-link"
                    id="categoriesLink">
@@ -215,35 +216,66 @@
         const flowerPage = document.getElementById("flowerPage");
         const flowerWrapper = document.getElementById("flowerWrapper");
 
-        // Adjust iframe height to the content inside it.
-        // This removes the separate iframe scrollbar.
+        let resizeTimer = null;
+
+        // Prevent the iframe height from growing repeatedly.
         function resizeFlowerPage() {
             try {
                 const pageDocument = flowerPage.contentDocument;
 
-                if (!pageDocument) {
+                if (!pageDocument || !pageDocument.body) {
                     return;
                 }
 
                 const pageBody = pageDocument.body;
                 const pageHtml = pageDocument.documentElement;
 
+                // Remove viewport-based minimum heights from the
+                // document root and body to prevent height feedback.
+                pageHtml.style.setProperty(
+                    "height", "auto", "important"
+                );
+                pageHtml.style.setProperty(
+                    "min-height", "0", "important"
+                );
+                pageBody.style.setProperty(
+                    "height", "auto", "important"
+                );
+                pageBody.style.setProperty(
+                    "min-height", "0", "important"
+                );
+
+                // Keep scrolling on the outer browser page.
+                pageHtml.style.setProperty(
+                    "overflow-y", "hidden", "important"
+                );
+                pageBody.style.setProperty(
+                    "overflow-y", "hidden", "important"
+                );
+
+                // Measure the content after resetting the heights.
                 const contentHeight = Math.max(
                     pageBody.scrollHeight,
                     pageBody.offsetHeight,
                     pageHtml.scrollHeight,
-                    pageHtml.offsetHeight,
-                    pageHtml.clientHeight
+                    pageHtml.offsetHeight
                 );
 
-                flowerPage.style.height = contentHeight + "px";
+                // Use a stable minimum rather than the previous
+                // iframe height, so it cannot grow from itself.
+                const newHeight = Math.max(100, contentHeight);
 
-                // Prevent a separate scrollbar inside the loaded page.
-                pageHtml.style.overflowY = "hidden";
-                pageBody.style.overflowY = "hidden";
+                if (
+                    Math.abs(
+                        flowerPage.getBoundingClientRect().height -
+                        newHeight
+                    ) > 2
+                ) {
+                    flowerPage.style.height = newHeight + "px";
+                }
 
             } catch (error) {
-                // Ignore errors if the page cannot be accessed.
+                // Ignore errors if the embedded page is unavailable.
             }
         }
 
@@ -256,8 +288,7 @@
                 const currentPage = currentPath
                     .substring(currentPath.lastIndexOf("/") + 1);
 
-                // SEARCH.HTML:
-                // Show navigation only on the initial occasion screen.
+                // Search page: show cards only on the initial screen.
                 if (currentPage === "search.html") {
                     const homePage =
                         pageWindow.document.getElementById("homePage");
@@ -274,42 +305,44 @@
                     return;
                 }
 
-                // CATEGORIES.HTML:
-                // Show navigation while the category selection screen
-                // itself is displayed.
+                // Categories page: show the bottom navigation.
                 if (currentPage === "categories.html") {
                     flowerWrapper.style.display = "block";
                     return;
                 }
 
-                // Any other page, including flower listings,
-                // flower details, checkout, and confirmation.
+                // Hide navigation on all other pages.
                 flowerWrapper.style.display = "none";
 
             } catch (error) {
-                // Hide navigation if the current page cannot be checked.
                 flowerWrapper.style.display = "none";
             }
         }
 
-        // Check when a new page loads inside the iframe.
+        // Set up height adjustments when a page loads.
         flowerPage.addEventListener("load", function() {
             resizeFlowerPage();
             updateWrapperVisibility();
+
+            // Recheck after the page finishes applying its styles.
+            requestAnimationFrame(function() {
+                resizeFlowerPage();
+                updateWrapperVisibility();
+            });
         });
 
-        // Detect changes between sections inside Search.html,
-        // even though its filename does not change.
-        // Also update the iframe height when its content changes.
+        // Recheck section visibility and content height.
+        // The height reset above prevents repeated height growth.
         setInterval(function() {
             resizeFlowerPage();
             updateWrapperVisibility();
-        }, 300);
+        }, 500);
 
         // Open Search.html.
         document.getElementById("occasionLink")
             .addEventListener("click", function(event) {
                 event.preventDefault();
+
                 flowerPage.src = "search.html";
 
                 window.scrollTo({
@@ -322,6 +355,7 @@
         document.getElementById("categoriesLink")
             .addEventListener("click", function(event) {
                 event.preventDefault();
+
                 flowerPage.src = "categories.html";
 
                 window.scrollTo({
