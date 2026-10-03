@@ -18,9 +18,9 @@
 
         html,
         body {
-            width: 100%;
             margin: 0;
             padding: 0;
+            width: 100%;
         }
 
         body {
@@ -35,20 +35,14 @@
             margin: 0 auto;
         }
 
-        /*
-           IMPORTANT:
-           Keep iframe height stable.
-           Do not resize it while scrolling.
-        */
         #flowerPage {
             display: block;
             width: 100%;
             height: 900px;
             border: none;
-            background: #fbf7f2;
             margin: 0;
             padding: 0;
-            overflow: hidden;
+            background: #fbf7f2;
         }
 
         /* Bottom navigation */
@@ -62,7 +56,7 @@
             width: 100%;
             height: 1px;
             background: #e6d8cf;
-            margin: 0 0 12px;
+            margin-bottom: 12px;
         }
 
         .wrapper-footer {
@@ -173,7 +167,7 @@
 
         <iframe
             id="flowerPage"
-            src="search.html"
+            src="Search.html"
             title="BloomSense Flower Selection"
             scrolling="no">
         </iframe>
@@ -228,7 +222,46 @@
         const flowerPage = document.getElementById("flowerPage");
         const flowerWrapper = document.getElementById("flowerWrapper");
 
-        // Check which page is currently loaded.
+        const measurementHeight = 900;
+
+        // Measure every page from the same baseline height.
+        // Never measure from the previously expanded iframe height.
+        function resizeFlowerPage() {
+            try {
+                const pageDocument = flowerPage.contentDocument;
+
+                if (!pageDocument || !pageDocument.body) {
+                    return;
+                }
+
+                const pageBody = pageDocument.body;
+                const pageHtml = pageDocument.documentElement;
+
+                // Reset to the same measurement height each time.
+                // These changes happen synchronously, before the browser
+                // paints, so the iframe does not visibly jump.
+                flowerPage.style.height = measurementHeight + "px";
+
+                const contentHeight = Math.max(
+                    pageBody.scrollHeight,
+                    pageHtml.scrollHeight,
+                    pageBody.offsetHeight,
+                    pageHtml.offsetHeight
+                );
+
+                // Keep the full page visible, including long flower lists.
+                const newHeight = Math.max(
+                    measurementHeight,
+                    contentHeight
+                );
+
+                flowerPage.style.height = newHeight + "px";
+
+            } catch (error) {
+                // Keep the current page visible if measurement fails.
+            }
+        }
+
         function updateWrapperVisibility() {
             try {
                 const pageWindow = flowerPage.contentWindow;
@@ -240,6 +273,7 @@
                         currentPath.lastIndexOf("/") + 1
                     );
 
+                // Show navigation only on the initial Search screen.
                 if (currentPage === "search.html") {
                     const homePage =
                         pageWindow.document.getElementById("homePage");
@@ -253,11 +287,13 @@
                     return;
                 }
 
+                // Show navigation on Categories.html.
                 if (currentPage === "categories.html") {
                     flowerWrapper.style.display = "block";
                     return;
                 }
 
+                // Hide navigation on other pages.
                 flowerWrapper.style.display = "none";
 
             } catch (error) {
@@ -265,22 +301,30 @@
             }
         }
 
-        // Update visibility when a page loads.
+        // Run measurements after a page loads.
         flowerPage.addEventListener("load", function() {
+            resizeFlowerPage();
             updateWrapperVisibility();
+
+            requestAnimationFrame(function() {
+                resizeFlowerPage();
+                updateWrapperVisibility();
+            });
         });
 
-        // Check section changes without changing iframe height.
+        // Recheck dynamic content and screen visibility.
+        // Height measurement always starts from 900px.
         setInterval(function() {
+            resizeFlowerPage();
             updateWrapperVisibility();
         }, 500);
 
-        // Navigate to Search.html.
+        // Shop by Occasion.
         document.getElementById("occasionLink")
             .addEventListener("click", function(event) {
                 event.preventDefault();
 
-                flowerPage.src = "search.html";
+                flowerPage.src = "Search.html";
 
                 window.scrollTo({
                     top: 0,
@@ -288,7 +332,7 @@
                 });
             });
 
-        // Navigate to Categories.html.
+        // Explore Flowers.
         document.getElementById("categoriesLink")
             .addEventListener("click", function(event) {
                 event.preventDefault();
