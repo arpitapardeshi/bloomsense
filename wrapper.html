@@ -222,12 +222,9 @@
         const flowerPage = document.getElementById("flowerPage");
         const flowerWrapper = document.getElementById("flowerWrapper");
 
-        const measurementHeight = 900;
         let lastPageUrl = "";
 
-        // Measure the page from a consistent baseline.
-        // Do not allow the previous iframe height to cause
-        // the next measurement to grow indefinitely.
+        // Resize the iframe without resetting it to 900px.
         function resizeFlowerPage() {
             try {
                 const pageDocument = flowerPage.contentDocument;
@@ -239,93 +236,51 @@
                 const pageBody = pageDocument.body;
                 const pageHtml = pageDocument.documentElement;
 
-                // Temporarily return to the same measurement height.
-                flowerPage.style.height = measurementHeight + "px";
-
-                // Force layout calculation at the baseline height.
-                pageHtml.getBoundingClientRect();
-
-                let contentHeight = Math.max(
+                const contentHeight = Math.ceil(Math.max(
                     pageBody.scrollHeight,
                     pageBody.offsetHeight,
                     pageHtml.scrollHeight,
                     pageHtml.offsetHeight
-                );
+                ));
 
-                // Also check the bottoms of content elements.
-                // This helps with pages containing positioned elements.
-                const elements = pageBody.querySelectorAll("*");
+                const newHeight = Math.max(900, contentHeight + 10);
+                const currentHeight =
+                    flowerPage.getBoundingClientRect().height;
 
-                elements.forEach(function(element) {
-                    const style =
-                        pageDocument.defaultView.getComputedStyle(element);
-
-                    // Ignore fixed elements that are not part
-                    // of the normal page content.
-                    if (style.position === "fixed") {
-                        return;
-                    }
-
-                    const rect = element.getBoundingClientRect();
-
-                    const elementBottom =
-                        rect.bottom + pageDocument.defaultView.scrollY;
-
-                    if (Number.isFinite(elementBottom)) {
-                        contentHeight = Math.max(
-                            contentHeight,
-                            elementBottom
-                        );
-                    }
-                });
-
-                // Add a small allowance for bottom padding and borders.
-                const newHeight = Math.ceil(
-                    Math.max(measurementHeight, contentHeight + 10)
-                );
-
-                // Only apply a height change when necessary.
-                // Avoid unnecessary repeated layout changes on scroll.
-                if (
-                    Math.abs(
-                        flowerPage.getBoundingClientRect().height -
-                        newHeight
-                    ) > 2
-                ) {
+                // Change the height only when a real difference exists.
+                if (Math.abs(currentHeight - newHeight) > 3) {
                     flowerPage.style.height = newHeight + "px";
                 }
-
             } catch (error) {
-                // Keep the currently loaded page if measurement fails.
+                // Keep the current height if measurement fails.
             }
         }
 
+        // Control the visibility of the bottom navigation.
         function updateWrapperVisibility() {
             try {
                 const pageWindow = flowerPage.contentWindow;
                 const currentPath =
                     pageWindow.location.pathname.toLowerCase();
 
-                const currentPage =
-                    currentPath.substring(
-                        currentPath.lastIndexOf("/") + 1
-                    );
+                const currentPage = currentPath.substring(
+                    currentPath.lastIndexOf("/") + 1
+                );
 
-                // Show navigation only on the initial Search screen.
+                // Show navigation on the Search home screen only.
                 if (currentPage === "search.html") {
                     const homePage =
                         pageWindow.document.getElementById("homePage");
 
                     flowerWrapper.style.display =
-                        homePage &&
-                        homePage.classList.contains("active")
+                        homePage && homePage.classList.contains("active")
                             ? "block"
                             : "none";
 
                     return;
                 }
 
-                // Show navigation on Categories.html.
+                // Show navigation on the Categories page.
                 if (currentPage === "categories.html") {
                     flowerWrapper.style.display = "block";
                     return;
@@ -339,45 +294,43 @@
             }
         }
 
-        // Handle a new page loaded inside the iframe.
+        // Run when a page loads inside the iframe.
         flowerPage.addEventListener("load", function() {
-            lastPageUrl = flowerPage.contentWindow.location.href;
+            try {
+                lastPageUrl = flowerPage.contentWindow.location.href;
+            } catch (error) {
+                lastPageUrl = "";
+            }
 
-            resizeFlowerPage();
             updateWrapperVisibility();
 
-            // Measure again after the browser has applied page styles.
+            // Measure after the page has rendered.
             requestAnimationFrame(function() {
                 resizeFlowerPage();
-                updateWrapperVisibility();
-            });
 
-            // Check once more after images and other resources settle.
-            setTimeout(function() {
-                resizeFlowerPage();
-                updateWrapperVisibility();
-            }, 300);
+                setTimeout(resizeFlowerPage, 300);
+                setTimeout(resizeFlowerPage, 800);
+                setTimeout(resizeFlowerPage, 1500);
+            });
         });
 
-        // Recheck navigation visibility and page size.
-        // The iframe is measured from the same baseline each time.
+        // Check navigation changes without resizing on every interval.
         setInterval(function() {
             try {
                 const currentUrl = flowerPage.contentWindow.location.href;
 
                 if (currentUrl !== lastPageUrl) {
                     lastPageUrl = currentUrl;
+
                     resizeFlowerPage();
+                    updateWrapperVisibility();
                 } else {
-                    resizeFlowerPage();
+                    updateWrapperVisibility();
                 }
-
-                updateWrapperVisibility();
-
             } catch (error) {
-                // Ignore temporary navigation or loading errors.
+                // Ignore temporary navigation errors.
             }
-        }, 1000);
+        }, 500);
 
         // Shop by Occasion.
         document.getElementById("occasionLink")
