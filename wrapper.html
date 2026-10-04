@@ -16,13 +16,6 @@
             box-sizing: border-box;
         }
 
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-        }
-
         body {
             background: #fbf7f2;
             color: #342426;
@@ -38,25 +31,22 @@
         #flowerPage {
             display: block;
             width: 100%;
-            height: 900px;
+            min-height: 900px;
             border: none;
-            margin: 0;
-            padding: 0;
             background: #fbf7f2;
         }
 
         /* Bottom navigation */
         .flower-wrapper {
             display: none;
-            margin: 0;
-            padding: 8px 30px 30px;
+            padding: 15px 30px 60px;
         }
 
         .wrapper-line {
             width: 100%;
             height: 1px;
             background: #e6d8cf;
-            margin-bottom: 12px;
+            margin-bottom: 22px;
         }
 
         .wrapper-footer {
@@ -123,8 +113,12 @@
         }
 
         @media (max-width: 800px) {
+            #flowerPage {
+                min-height: 1000px;
+            }
+
             .flower-wrapper {
-                padding: 8px 15px 25px;
+                padding: 15px 15px 40px;
             }
 
             .wrapper-footer {
@@ -165,11 +159,11 @@
 
     <div class="wrapper-container">
 
+        <!-- Initial page -->
         <iframe
             id="flowerPage"
             src="search.html"
-            title="BloomSense Flower Selection"
-            scrolling="no">
+            title="BloomSense Flower Selection">
         </iframe>
 
         <!-- Bottom navigation -->
@@ -179,6 +173,7 @@
 
             <div class="wrapper-footer">
 
+                <!-- Search.html -->
                 <a href="search.html"
                    class="wrapper-link"
                    id="occasionLink">
@@ -196,7 +191,8 @@
 
                 </a>
 
-                <a href="categories.html"
+                <!-- Categories.html -->
+                <a href="Categories.html"
                    class="wrapper-link"
                    id="categoriesLink">
 
@@ -222,314 +218,62 @@
         const flowerPage = document.getElementById("flowerPage");
         const flowerWrapper = document.getElementById("flowerWrapper");
 
-        let resizeFrame = null;
-        let mutationObserver = null;
-        let resizeObserver = null;
-        let imageLoadHandler = null;
-        let lastPageUrl = "";
-        let lastWrapperState = "";
-
-        /*
-         * Adjust viewport-dependent heights inside search.html.
-         * This prevents the iframe height from affecting its own
-         * content height through 100vh and min-height rules.
-         */
-        function prepareEmbeddedPage() {
-            try {
-                const doc = flowerPage.contentDocument;
-
-                if (!doc || !doc.head || !doc.body) return;
-
-                if (!doc.getElementById("bloomsense-iframe-fixes")) {
-                    const style = doc.createElement("style");
-                    style.id = "bloomsense-iframe-fixes";
-
-                    style.textContent = `
-                        html,
-                        body {
-                            height: auto !important;
-                            min-height: 0 !important;
-                        }
-
-                        .page {
-                            min-height: 0 !important;
-                        }
-
-                        #confirmation {
-                            min-height: 0 !important;
-                        }
-
-                        .detail-image {
-                            height: 650px !important;
-                            min-height: 650px !important;
-                            max-height: 760px !important;
-                        }
-
-                        @media (max-width: 800px) {
-                            .detail-image {
-                                height: 350px !important;
-                                min-height: 350px !important;
-                                max-height: 350px !important;
-                            }
-                        }
-                    `;
-
-                    doc.head.appendChild(style);
-                }
-            } catch (error) {
-                // Keep the existing page if styling cannot be injected.
-            }
-        }
-
-        /*
-         * Measure the currently visible content.
-         * Hidden sections are not counted, so changing pages
-         * can make the iframe both taller and shorter.
-         */
-        function measureContentHeight() {
-            try {
-                const doc = flowerPage.contentDocument;
-
-                if (!doc || !doc.body || !doc.documentElement) {
-                    return null;
-                }
-
-                const body = doc.body;
-                const html = doc.documentElement;
-
-                let bottom = 0;
-
-                const elements = body.querySelectorAll("*");
-
-                elements.forEach(function(element) {
-                    const style = doc.defaultView.getComputedStyle(element);
-
-                    if (
-                        style.display === "none" ||
-                        style.visibility === "hidden" ||
-                        style.position === "fixed"
-                    ) {
-                        return;
-                    }
-
-                    const rect = element.getBoundingClientRect();
-
-                    if (rect.width === 0 && rect.height === 0) {
-                        return;
-                    }
-
-                    const elementBottom =
-                        rect.bottom + doc.defaultView.scrollY;
-
-                    if (Number.isFinite(elementBottom)) {
-                        bottom = Math.max(bottom, elementBottom);
-                    }
-                });
-
-                const bodyStyle = doc.defaultView.getComputedStyle(body);
-
-                const bodyPaddingBottom =
-                    parseFloat(bodyStyle.paddingBottom) || 0;
-
-                const measuredHeight = Math.ceil(Math.max(
-                    bottom + bodyPaddingBottom,
-                    body.scrollHeight,
-                    body.offsetHeight,
-                    html.scrollHeight,
-                    html.offsetHeight
-                ));
-
-                return Math.max(200, measuredHeight + 8);
-
-            } catch (error) {
-                return null;
-            }
-        }
-
-        function resizeFlowerPage() {
-            const newHeight = measureContentHeight();
-
-            if (newHeight === null) return;
-
-            const currentHeight =
-                flowerPage.getBoundingClientRect().height;
-
-            if (Math.abs(currentHeight - newHeight) > 3) {
-                flowerPage.style.height = newHeight + "px";
-            }
-        }
-
-        /*
-         * Coalesce repeated changes into one measurement.
-         */
-        function scheduleResize() {
-            if (resizeFrame !== null) return;
-
-            resizeFrame = requestAnimationFrame(function() {
-                resizeFrame = null;
-
-                prepareEmbeddedPage();
-                resizeFlowerPage();
-                updateWrapperVisibility();
-            });
-        }
-
-        /*
-         * Footer visibility depends on the actual page currently
-         * displayed inside the iframe.
-         */
         function updateWrapperVisibility() {
             try {
                 const pageWindow = flowerPage.contentWindow;
-                const doc = flowerPage.contentDocument;
-
-                if (!pageWindow || !doc) return;
-
                 const currentPath =
                     pageWindow.location.pathname.toLowerCase();
 
-                const currentPage = currentPath.substring(
-                    currentPath.lastIndexOf("/") + 1
-                );
+                const currentPage = currentPath
+                    .substring(currentPath.lastIndexOf("/") + 1);
 
-                let shouldShow = false;
-
+                // SEARCH.HTML:
+                // Show navigation only on the initial occasion screen.
                 if (currentPage === "search.html") {
-                    const homePage = doc.getElementById("homePage");
+                    const homePage =
+                        pageWindow.document.getElementById("homePage");
 
-                    shouldShow = !!(
+                    if (
                         homePage &&
                         homePage.classList.contains("active")
-                    );
-                } else if (currentPage === "categories.html") {
-                    shouldShow = true;
-                }
-
-                const newState = shouldShow ? "visible" : "hidden";
-
-                if (newState !== lastWrapperState) {
-                    flowerWrapper.style.display =
-                        shouldShow ? "block" : "none";
-
-                    lastWrapperState = newState;
-                }
-
-            } catch (error) {
-                flowerWrapper.style.display = "none";
-                lastWrapperState = "hidden";
-            }
-        }
-
-        /*
-         * Observe page changes, including internal navigation such
-         * as Home, flower details, cart, checkout and success pages.
-         */
-        function observeEmbeddedPage() {
-            try {
-                const doc = flowerPage.contentDocument;
-
-                if (!doc || !doc.body) return;
-
-                if (mutationObserver) {
-                    mutationObserver.disconnect();
-                }
-
-                if (resizeObserver) {
-                    resizeObserver.disconnect();
-                }
-
-                if (imageLoadHandler) {
-                    doc.removeEventListener(
-                        "load",
-                        imageLoadHandler,
-                        true
-                    );
-                }
-
-                prepareEmbeddedPage();
-
-                mutationObserver = new MutationObserver(function() {
-                    scheduleResize();
-                });
-
-                mutationObserver.observe(doc.body, {
-                    subtree: true,
-                    childList: true,
-                    attributes: true,
-                    attributeFilter: ["class", "style", "hidden"],
-                    characterData: true
-                });
-
-                resizeObserver = new ResizeObserver(function() {
-                    scheduleResize();
-                });
-
-                resizeObserver.observe(doc.body);
-
-                if (doc.documentElement) {
-                    resizeObserver.observe(doc.documentElement);
-                }
-
-                imageLoadHandler = function(event) {
-                    if (event.target && event.target.tagName === "IMG") {
-                        scheduleResize();
+                    ) {
+                        flowerWrapper.style.display = "block";
+                    } else {
+                        flowerWrapper.style.display = "none";
                     }
-                };
 
-                doc.addEventListener("load", imageLoadHandler, true);
+                    return;
+                }
 
-                updateWrapperVisibility();
-                scheduleResize();
+                // CATEGORIES.HTML:
+                // Show navigation while the category selection screen
+                // itself is displayed.
+                if (currentPage === "categories.html") {
+                    flowerWrapper.style.display = "block";
+                    return;
+                }
 
-                // Recheck after fonts and images finish rendering.
-                setTimeout(scheduleResize, 250);
-                setTimeout(scheduleResize, 700);
-                setTimeout(scheduleResize, 1200);
+                // Any other page, including flower listings,
+                // flower details, checkout, and confirmation.
+                flowerWrapper.style.display = "none";
 
             } catch (error) {
-                // Keep the current iframe height if observation fails.
+                // Hide navigation if the current page cannot be checked.
+                flowerWrapper.style.display = "none";
             }
         }
 
-        /*
-         * Handle full iframe page loads.
-         */
-        flowerPage.addEventListener("load", function() {
-            try {
-                lastPageUrl = flowerPage.contentWindow.location.href;
-            } catch (error) {
-                lastPageUrl = "";
-            }
+        // Check when a new page loads inside the iframe.
+        flowerPage.addEventListener("load", updateWrapperVisibility);
 
-            observeEmbeddedPage();
-        });
+        // Detect changes between sections inside Search.html,
+        // even though its filename does not change.
+        setInterval(updateWrapperVisibility, 300);
 
-        /*
-         * Detect URL changes without forcing the iframe to a
-         * fixed height or resetting the user's scroll position.
-         */
-        setInterval(function() {
-            try {
-                const currentUrl = flowerPage.contentWindow.location.href;
-
-                if (currentUrl !== lastPageUrl) {
-                    lastPageUrl = currentUrl;
-                    observeEmbeddedPage();
-                } else {
-                    updateWrapperVisibility();
-                }
-            } catch (error) {
-                // Ignore temporary navigation errors.
-            }
-        }, 500);
-
-        /*
-         * Shop by Occasion: load the search page at the top.
-         */
+        // Open Search.html.
         document.getElementById("occasionLink")
             .addEventListener("click", function(event) {
                 event.preventDefault();
-
                 flowerPage.src = "search.html";
 
                 window.scrollTo({
@@ -538,13 +282,10 @@
                 });
             });
 
-        /*
-         * Explore Flowers: load the categories page at the top.
-         */
+        // Open Categories.html.
         document.getElementById("categoriesLink")
             .addEventListener("click", function(event) {
                 event.preventDefault();
-
                 flowerPage.src = "categories.html";
 
                 window.scrollTo({
@@ -552,7 +293,6 @@
                     behavior: "smooth"
                 });
             });
-
     </script>
 
 </body>
