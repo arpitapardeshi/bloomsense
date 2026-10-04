@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +17,8 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:"Cormorant Gara
 .navbar{min-height:90px;background:var(--bg);border-bottom:1px solid var(--line);padding:12px 4%;display:flex;align-items:center}
 .logo{width:155px;height:auto}.navlinks{margin-left:auto;display:flex;align-items:center;gap:32px}
 .navlinks button{border:0;background:transparent;color:var(--brown);font:500 14px Inter,sans-serif;cursor:pointer}
-.cart-head{width:62px;height:62px;border-radius:50%;background:#fff;border:2px solid var(--pink);color:var(--pink);display:flex;align-items:center;justify-content:center;font-size:25px;position:relative;margin-left:28px;cursor:pointer}
+.cart-head{width:62px;height:62px;border-radius:50%;background:#fff;border:2px solid var(--pink);color:var(--pink);display:flex;align-items:center;justify-content:center;font-size:25px;position:relative;margin-left:28px;cursor:pointer;transition:all .2s ease}
+.cart-head:hover{background:var(--pink);color:#fff}
 .cart-count{position:absolute;top:-5px;right:-5px;min-width:21px;height:21px;border-radius:50%;background:var(--pink);color:#fff;display:flex;align-items:center;justify-content:center;font:600 10px Inter,sans-serif}
 .hero{text-align:center;padding:35px 0 25px}.hero h1{font-size:55px;line-height:1;color:var(--brown);margin:0 0 10px;font-weight:500}.hero p{font-size:19px;margin:0;color:#806b68}
 .home-search,.category-search{width:100%;margin:20px auto 28px;padding:5px 6px 5px 22px;background:#fff;border:1px solid var(--line);border-radius:34px;display:flex;align-items:center}
@@ -94,12 +96,15 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:"Cormorant Gara
 <body>
 
 <header class="navbar">
+<a href="flower-listing.html">
 <img src="logoo.png.png" class="logo" alt="BloomSense">
+</a>
 <nav class="navlinks">
-<button onclick="home()" type="button">Home</button>
-<button onclick="home()" type="button">Buy My Flowers</button>
-<button onclick="about()" type="button">About Us</button>
-<button onclick="contact()" type="button">Contact</button>
+<button onclick="window.location.href='home.html'" type="button">Home</button>
+<button onclick="window.location.href='wrapper.html'" type="button">Buy My Flowers</button>
+<button onclick="window.location.href='birthflower.html'" type="button">Birth Flower</button>
+<button onclick="window.location.href='about.html'" type="button">About Us</button>
+<button onclick="window.location.href='contact.html'" type="button">Contact</button>
 <button class="cart-head" onclick="showCart()" type="button"><i class="bi bi-bag"></i><span id="cartCount" class="cart-count">0</span></button>
 </nav>
 </header>
@@ -243,94 +248,23 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:"Cormorant Gara
 <script>
 const data={
 Birthday:[
-["Sunflowers",299,"Happiness & positivity","sunflower-2.jpg"],
-["Gerberas",249,"Joy & friendship","Gerberas.jpg"],
-["Bright Dahlias",279,"Strength & elegance","bright dahlias.jpg"],
-["Yellow Roses",299,"Friendship & happiness","Yellow rose.jpg"],
-["Marigolds",199,"Warmth & passion","Marigold-2.jpg"],
-["Zinnias",249,"Lasting friendship","Zinnias.jpg"],
-["Chrysanthemums",239,"Joy & optimism","Chrysanthemus-2.jpg"]],
+["Sunflowers",299,"Happiness & positivity","sunflowers.jpg"],["Gerberas",249,"Joy & friendship","gerberas.jpg"],["Bright Dahlias",279,"Strength & elegance","bright-dahlias.jpg"],["Yellow Roses",299,"Friendship & happiness","yellow-roses.jpg"],["Marigolds",199,"Warmth & passion","marigolds.jpg"],["Zinnias",249,"Lasting friendship","zinnias.jpg"],["Chrysanthemums",239,"Joy & optimism","chrysanthemums.jpg"]],
 Anniversary:[
-["Red Roses",299,"Love & passion","Red rose.jpg"],
-["Peonies",289,"Romance & prosperity","Peonies.jpg"],
-["Orchids",279,"Luxury & admiration","orchid-2.jpg"],
-["Lilies",249,"Devotion & purity","lilie-2.jpg"],
-["Tulips",259,"Perfect love","tulip-2.jpg"],
-["Garden Roses",299,"Romantic love","Garden roses.jpg"],
-["Hydrangeas",239,"Gratitude & emotion","Hydrangeas.jpg"],
-["Calla Lilies",279,"Elegance & beauty","Calla lilies.jpg"],
-["Alstroemeria",219,"Devotion & friendship","Alstroemeria-2 .jpg"]],
+["Red Roses",299,"Love & passion","red-roses.jpg"],["Peonies",289,"Romance & prosperity","peonies.jpg"],["Orchids",279,"Luxury & admiration","orchids.jpg"],["Lilies",249,"Devotion & purity","lilies.jpg"],["Tulips",259,"Perfect love","tulips.jpg"],["Garden Roses",299,"Romantic love","garden-roses.jpg"],["Hydrangeas",239,"Gratitude & emotion","hydrangeas.jpg"],["Calla Lilies",279,"Elegance & beauty","calla-lilies.jpg"],["Alstroemeria",219,"Devotion & friendship","alstroemeria.jpg"]],
 Congratulations:[
-["Stargazer Lilies",299,"Success & ambition","Stargazer lilies.jpg"],
-["Orange Roses",259,"Excitement & enthusiasm","Orange roses.jpg"],
-["Birds of Paradise",289,"Freedom & celebration","Birds of paradise.jpg"],
-["Delphinium",229,"New possibilities","Delphinium .jpg"],
-["Gladiolus",249,"Strength & victory","Gladiolus .jpg"],
-["Anthuriums",279,"Hospitality & happiness","Anthuriums .jpg"],
-["Pink Lilies",259,"Prosperity & affection","Pink lilies.jpg"],
-["Irises",219,"Hope & courage","Irises.jpg"],
-["Protea",299,"Transformation","Protea.jpg"],
-["Sunflowers",289,"Success & positivity","sunflower-3.jpg"]],
+["Stargazer Lilies",299,"Success & ambition","stargazer-lilies.jpg"],["Orange Roses",259,"Excitement & enthusiasm","orange-roses.jpg"],["Birds of Paradise",289,"Freedom & celebration","birds-of-paradise.jpg"],["Delphinium",229,"New possibilities","delphinium.jpg"],["Gladiolus",249,"Strength & victory","gladiolus.jpg"],["Anthuriums",279,"Hospitality & happiness","anthuriums.jpg"],["Pink Lilies",259,"Prosperity & affection","pink-lilies.jpg"],["Irises",219,"Hope & courage","irises.jpg"],["Protea",299,"Transformation","protea.jpg"],["Sunflowers",289,"Success & positivity","sunflowers.jpg"]],
 Apology:[
-["White Roses",299,"Peace & sincerity","White rose.jpg"],
-["White Lilies",279,"Purity & renewal","White lilie.jpg"],
-["Blue Hyacinths",249,"Sincerity & forgiveness","Blue hyacinths.jpg"],
-["White Tulips",259,"Forgiveness & peace","White tulip.jpg"],
-["Hydrangeas",239,"Understanding & emotion","Hydrangeas.jpg"],
-["Camellias",289,"Admiration & care","Camelias.jpg"],
-["Daisies",199,"Innocence & honesty","daisy-2.jpg"],
-["Baby's Breath",219,"Sincerity & purity","Baby breaths.jpg"],
-["White Orchids",299,"Respect & elegance","White orchid.jpg"],
-["Lisianthus",249,"Appreciation & calm","Lisianthus.jpg"]],
+["White Roses",299,"Peace & sincerity","white-roses.jpg"],["White Lilies",279,"Purity & renewal","white-lilies.jpg"],["Blue Hyacinths",249,"Sincerity & forgiveness","blue-hyacinths.jpg"],["White Tulips",259,"Forgiveness & peace","white-tulips.jpg"],["Hydrangeas",239,"Understanding & emotion","hydrangeas.jpg"],["Camellias",289,"Admiration & care","camellias.jpg"],["Daisies",199,"Innocence & honesty","daisies.jpg"],["Baby's Breath",219,"Sincerity & purity","babys-breath.jpg"],["White Orchids",299,"Respect & elegance","white-orchids.jpg"],["Lisianthus",249,"Appreciation & calm","lisianthus.jpg"]],
 "Thank You":[
-["Peach Roses",259,"Gratitude & appreciation","Peach roses.jpg"],
-["Sweet Peas",229,"Thankfulness & kindness","Sweet peas.jpg"],
-["Pink Tulips",249,"Care & affection","Pink tulips.jpg"],
-["Campanula",219,"Gratitude","Campanula.jpg"],
-["Lisianthus",279,"Appreciation","Lisianthus.jpg"],
-["Hydrangeas",239,"Understanding","Hydrangeas.jpg"],
-["Pink Roses",299,"Thankfulness","Pink roses.jpg"],
-["Gerberas",249,"Cheerfulness","Gerberas.jpg"],
-["Alstroemeria",219,"Friendship","Alstromeria.jpg"]],
+["Peach Roses",259,"Gratitude & appreciation","peach-roses.jpg"],["Sweet Peas",229,"Thankfulness & kindness","sweet-peas.jpg"],["Pink Tulips",249,"Care & affection","pink-tulips.jpg"],["Campanula",219,"Gratitude","campanula.jpg"],["Lisianthus",279,"Appreciation","lisianthus.jpg"],["Hydrangeas",239,"Understanding","hydrangeas.jpg"],["Pink Roses",299,"Thankfulness","pink-roses.jpg"],["Gerberas",249,"Cheerfulness","gerberas.jpg"],["Alstroemeria",219,"Friendship","alstroemeria.jpg"]],
 "Get Well Soon":[
-["Hydrangeas",279,"Hope & understanding","Hydrangeas.jpg"],
-["Chamomile",219,"Calm & comfort","Chamomile .jpg"],
-["Alstroemeria",249,"Friendship & support","Alstromeria.jpg"],
-["Snapdragons",229,"Strength","Snapdragons .jpg"],
-["Iris",259,"Hope & courage","Iris.jpg"],
-["Yellow Tulips",249,"Cheerfulness","Yellow tulip.jpg"],
-["Sunflowers",299,"Positivity","sunflower-2.jpg"],
-["Gerberas",239,"Happiness","Gerberas.jpg"],
-["Lilies",279,"Renewal","lilie-2.jpg"]],
+["Hydrangeas",279,"Hope & understanding","hydrangeas.jpg"],["Chamomile",219,"Calm & comfort","chamomile.jpg"],["Alstroemeria",249,"Friendship & support","alstroemeria.jpg"],["Snapdragons",229,"Strength","snapdragons.jpg"],["Iris",259,"Hope & courage","iris.jpg"],["Yellow Tulips",249,"Cheerfulness","yellow-tulips.jpg"],["Sunflowers",299,"Positivity","sunflowers.jpg"],["Gerberas",239,"Happiness","gerberas.jpg"],["Lilies",279,"Renewal","lilies.jpg"]],
 Party:[
-["Chrysanthemums",239,"Joy & celebration","Chrysanthemus-2.jpg"],
-["Marigolds",199,"Warmth & energy","Marigold-2.jpg"],
-["Protea",299,"Transformation","Protea.jpg"],
-["Sunflowers",289,"Happiness","sunflower-3.jpg"],
-["Gerberas",249,"Fun & cheer","Gerberas.jpg"],
-["Dahlias",279,"Elegance","dahlia.jpg"]],
+["Chrysanthemums",239,"Joy & celebration","chrysanthemums.jpg"],["Marigolds",199,"Warmth & energy","marigolds.jpg"],["Protea",299,"Transformation","protea.jpg"],["Sunflowers",289,"Happiness","sunflowers.jpg"],["Gerberas",249,"Fun & cheer","gerberas.jpg"],["Dahlias",279,"Elegance","dahlias.jpg"]],
 "Seasonal Flowers":[
-["Tulips",259,"Fresh beginnings","tulip-2.jpg"],
-["Daffodils",229,"New beginnings","daffodil-2.jpeg"],
-["Chrysanthemums",239,"Joy","Chrysanthemus-2.jpg"],
-["Marigolds",199,"Warmth","Marigold-2.jpg"],
-["Sunflowers",299,"Positive energy","sunflower-2.jpg"],
-["Lilies",279,"Renewal","lilie-2.jpg"],
-["Daisies",199,"Innocence","daisy-2.jpg"],
-["Roses",289,"Love","Red rose.jpg"],
-["Gerberas",249,"Cheerfulness","Gerberas.jpg"],
-["Orchids",279,"Beauty","orchid-2.jpg"]],
+["Tulips",259,"Fresh beginnings","tulips.jpg"],["Daffodils",229,"New beginnings","daffodils.jpg"],["Chrysanthemums",239,"Joy","chrysanthemums.jpg"],["Marigolds",199,"Warmth","marigolds.jpg"],["Sunflowers",299,"Positive energy","sunflowers.jpg"],["Lilies",279,"Renewal","lilies.jpg"],["Daisies",199,"Innocence","daisies.jpg"],["Roses",289,"Love","roses.jpg"],["Gerberas",249,"Cheerfulness","gerberas.jpg"],["Orchids",279,"Beauty","orchids.jpg"]],
 Other:[
-["Mixed Roses",299,"Love & appreciation","mixed rose.jpeg"],
-["Mixed Tulips",279,"Joy & freshness","mixed tulip.jpeg"],
-["Mixed Lilies",289,"Grace & beauty","mixed lilie.jpeg"],
-["Wildflowers",229,"Freedom & happiness","wildflower.jpeg"],
-["Pastel Bouquet",259,"Gentleness & care","pastel bouquet.jpeg"],
-["Spring Mix",249,"Fresh beginnings","spring mix.jpeg"],
-["Garden Mix",279,"Natural beauty","garden mix.jpeg"],
-["Colorful Gerberas",239,"Happiness","colorful gerberas.jpeg"],
-["Elegant Orchids",299,"Luxury","elegant orchid.jpeg"],
-["Classic Bouquet",289,"Thoughtfulness","classic bouquet.jpeg"]]
+["Mixed Roses",299,"Love & appreciation","mixed-roses.jpg"],["Mixed Tulips",279,"Joy & freshness","mixed-tulips.jpg"],["Mixed Lilies",289,"Grace & beauty","mixed-lilies.jpg"],["Wildflowers",229,"Freedom & happiness","wildflowers.jpg"],["Pastel Bouquet",259,"Gentleness & care","pastel-bouquet.jpg"],["Spring Mix",249,"Fresh beginnings","spring-mix.jpg"],["Garden Mix",279,"Natural beauty","garden-mix.jpg"],["Colorful Gerberas",239,"Happiness","colorful-gerberas.jpg"],["Elegant Orchids",299,"Luxury","elegant-orchids.jpg"],["Classic Bouquet",289,"Thoughtfulness","classic-bouquet.jpg"]]
 };
 
 const occasions=[
@@ -352,8 +286,8 @@ document.querySelector(".checkout-heading").style.display="block";
 showPage("homePage");renderOccasions();
 }
 
-function about(){showPage("aboutPage")}
-function contact(){showPage("contactPage")}
+function about(){window.location.href="about.html"}
+function contact(){window.location.href="contact.html"}
 
 function renderOccasions(list=occasions){
 document.getElementById("occasionGrid").innerHTML=list.map(o=>`
@@ -542,7 +476,7 @@ localStorage.setItem("bloomCart",JSON.stringify(cart));
 });
 
 document.getElementById("addMoreButton").addEventListener("click",function(){
-showPage("homePage");renderOccasions();
+window.location.href="categories.html";
 });
 
 document.getElementById("checkoutForm").addEventListener("submit",function(e){
@@ -602,7 +536,7 @@ document.getElementById("confirmation").style.display="none";
 document.getElementById("checkoutSection").style.display="block";
 document.querySelector(".checkout-heading").style.display="block";
 document.getElementById("checkoutForm").reset();
-home();
+window.location.href="index.html";
 });
 
 
