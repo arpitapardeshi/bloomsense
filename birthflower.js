@@ -47,7 +47,7 @@ May: {
 
 June: {
     name: "Rose",
-    image: "rose.jpg",
+    image: "rose.jpg.jpeg",
     meaning: "Love • Beauty • Affection • Admiration",
     personality: "Like the rose bringing calm beauty to a garden, those born in June often bring a calming and comforting presence to others.",
     symbolism: "Roses traditionally symbolize love, beauty and affection.",
@@ -56,7 +56,7 @@ June: {
 
 July: {
     name: "Water Lily",
-    image: "waterlily.jpg.jpeg",
+    image: "water-lily.jpeg",
     meaning: "Purity • Innocence • Joy • Rebirth • Wisdom",
     personality: "Like the water lily rising beautifully above the water, those born in July have a natural affinity for beauty and elegance.",
     symbolism: "Water lilies can represent purity, innocence, joy, friendship, wisdom and rebirth.",
