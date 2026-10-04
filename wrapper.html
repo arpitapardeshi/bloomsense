@@ -222,44 +222,169 @@
         const flowerPage = document.getElementById("flowerPage");
         const flowerWrapper = document.getElementById("flowerWrapper");
 
+        let resizeFrame = null;
+        let mutationObserver = null;
+        let resizeObserver = null;
+        let imageLoadHandler = null;
         let lastPageUrl = "";
+        let lastWrapperState = "";
 
-        // Resize the iframe without resetting it to 900px.
-        function resizeFlowerPage() {
+        /*
+         * Adjust viewport-dependent heights inside search.html.
+         * This prevents the iframe height from affecting its own
+         * content height through 100vh and min-height rules.
+         */
+        function prepareEmbeddedPage() {
             try {
-                const pageDocument = flowerPage.contentDocument;
+                const doc = flowerPage.contentDocument;
 
-                if (!pageDocument || !pageDocument.body) {
-                    return;
-                }
+                if (!doc || !doc.head || !doc.body) return;
 
-                const pageBody = pageDocument.body;
-                const pageHtml = pageDocument.documentElement;
+                if (!doc.getElementById("bloomsense-iframe-fixes")) {
+                    const style = doc.createElement("style");
+                    style.id = "bloomsense-iframe-fixes";
 
-                const contentHeight = Math.ceil(Math.max(
-                    pageBody.scrollHeight,
-                    pageBody.offsetHeight,
-                    pageHtml.scrollHeight,
-                    pageHtml.offsetHeight
-                ));
+                    style.textContent = `
+                        html,
+                        body {
+                            height: auto !important;
+                            min-height: 0 !important;
+                        }
 
-                const newHeight = Math.max(900, contentHeight + 10);
-                const currentHeight =
-                    flowerPage.getBoundingClientRect().height;
+                        .page {
+                            min-height: 0 !important;
+                        }
 
-                // Change the height only when a real difference exists.
-                if (Math.abs(currentHeight - newHeight) > 3) {
-                    flowerPage.style.height = newHeight + "px";
+                        #confirmation {
+                            min-height: 0 !important;
+                        }
+
+                        .detail-image {
+                            height: 650px !important;
+                            min-height: 650px !important;
+                            max-height: 760px !important;
+                        }
+
+                        @media (max-width: 800px) {
+                            .detail-image {
+                                height: 350px !important;
+                                min-height: 350px !important;
+                                max-height: 350px !important;
+                            }
+                        }
+                    `;
+
+                    doc.head.appendChild(style);
                 }
             } catch (error) {
-                // Keep the current height if measurement fails.
+                // Keep the existing page if styling cannot be injected.
             }
         }
 
-        // Control the visibility of the bottom navigation.
+        /*
+         * Measure the currently visible content.
+         * Hidden sections are not counted, so changing pages
+         * can make the iframe both taller and shorter.
+         */
+        function measureContentHeight() {
+            try {
+                const doc = flowerPage.contentDocument;
+
+                if (!doc || !doc.body || !doc.documentElement) {
+                    return null;
+                }
+
+                const body = doc.body;
+                const html = doc.documentElement;
+
+                let bottom = 0;
+
+                const elements = body.querySelectorAll("*");
+
+                elements.forEach(function(element) {
+                    const style = doc.defaultView.getComputedStyle(element);
+
+                    if (
+                        style.display === "none" ||
+                        style.visibility === "hidden" ||
+                        style.position === "fixed"
+                    ) {
+                        return;
+                    }
+
+                    const rect = element.getBoundingClientRect();
+
+                    if (rect.width === 0 && rect.height === 0) {
+                        return;
+                    }
+
+                    const elementBottom =
+                        rect.bottom + doc.defaultView.scrollY;
+
+                    if (Number.isFinite(elementBottom)) {
+                        bottom = Math.max(bottom, elementBottom);
+                    }
+                });
+
+                const bodyStyle = doc.defaultView.getComputedStyle(body);
+
+                const bodyPaddingBottom =
+                    parseFloat(bodyStyle.paddingBottom) || 0;
+
+                const measuredHeight = Math.ceil(Math.max(
+                    bottom + bodyPaddingBottom,
+                    body.scrollHeight,
+                    body.offsetHeight,
+                    html.scrollHeight,
+                    html.offsetHeight
+                ));
+
+                return Math.max(200, measuredHeight + 8);
+
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function resizeFlowerPage() {
+            const newHeight = measureContentHeight();
+
+            if (newHeight === null) return;
+
+            const currentHeight =
+                flowerPage.getBoundingClientRect().height;
+
+            if (Math.abs(currentHeight - newHeight) > 3) {
+                flowerPage.style.height = newHeight + "px";
+            }
+        }
+
+        /*
+         * Coalesce repeated changes into one measurement.
+         */
+        function scheduleResize() {
+            if (resizeFrame !== null) return;
+
+            resizeFrame = requestAnimationFrame(function() {
+                resizeFrame = null;
+
+                prepareEmbeddedPage();
+                resizeFlowerPage();
+                updateWrapperVisibility();
+            });
+        }
+
+        /*
+         * Footer visibility depends on the actual page currently
+         * displayed inside the iframe.
+         */
         function updateWrapperVisibility() {
             try {
                 const pageWindow = flowerPage.contentWindow;
+                const doc = flowerPage.contentDocument;
+
+                if (!pageWindow || !doc) return;
+
                 const currentPath =
                     pageWindow.location.pathname.toLowerCase();
 
@@ -267,34 +392,108 @@
                     currentPath.lastIndexOf("/") + 1
                 );
 
-                // Show navigation on the Search home screen only.
+                let shouldShow = false;
+
                 if (currentPage === "search.html") {
-                    const homePage =
-                        pageWindow.document.getElementById("homePage");
+                    const homePage = doc.getElementById("homePage");
 
+                    shouldShow = !!(
+                        homePage &&
+                        homePage.classList.contains("active")
+                    );
+                } else if (currentPage === "categories.html") {
+                    shouldShow = true;
+                }
+
+                const newState = shouldShow ? "visible" : "hidden";
+
+                if (newState !== lastWrapperState) {
                     flowerWrapper.style.display =
-                        homePage && homePage.classList.contains("active")
-                            ? "block"
-                            : "none";
+                        shouldShow ? "block" : "none";
 
-                    return;
+                    lastWrapperState = newState;
                 }
-
-                // Show navigation on the Categories page.
-                if (currentPage === "categories.html") {
-                    flowerWrapper.style.display = "block";
-                    return;
-                }
-
-                // Hide navigation on all other pages.
-                flowerWrapper.style.display = "none";
 
             } catch (error) {
                 flowerWrapper.style.display = "none";
+                lastWrapperState = "hidden";
             }
         }
 
-        // Run when a page loads inside the iframe.
+        /*
+         * Observe page changes, including internal navigation such
+         * as Home, flower details, cart, checkout and success pages.
+         */
+        function observeEmbeddedPage() {
+            try {
+                const doc = flowerPage.contentDocument;
+
+                if (!doc || !doc.body) return;
+
+                if (mutationObserver) {
+                    mutationObserver.disconnect();
+                }
+
+                if (resizeObserver) {
+                    resizeObserver.disconnect();
+                }
+
+                if (imageLoadHandler) {
+                    doc.removeEventListener(
+                        "load",
+                        imageLoadHandler,
+                        true
+                    );
+                }
+
+                prepareEmbeddedPage();
+
+                mutationObserver = new MutationObserver(function() {
+                    scheduleResize();
+                });
+
+                mutationObserver.observe(doc.body, {
+                    subtree: true,
+                    childList: true,
+                    attributes: true,
+                    attributeFilter: ["class", "style", "hidden"],
+                    characterData: true
+                });
+
+                resizeObserver = new ResizeObserver(function() {
+                    scheduleResize();
+                });
+
+                resizeObserver.observe(doc.body);
+
+                if (doc.documentElement) {
+                    resizeObserver.observe(doc.documentElement);
+                }
+
+                imageLoadHandler = function(event) {
+                    if (event.target && event.target.tagName === "IMG") {
+                        scheduleResize();
+                    }
+                };
+
+                doc.addEventListener("load", imageLoadHandler, true);
+
+                updateWrapperVisibility();
+                scheduleResize();
+
+                // Recheck after fonts and images finish rendering.
+                setTimeout(scheduleResize, 250);
+                setTimeout(scheduleResize, 700);
+                setTimeout(scheduleResize, 1200);
+
+            } catch (error) {
+                // Keep the current iframe height if observation fails.
+            }
+        }
+
+        /*
+         * Handle full iframe page loads.
+         */
         flowerPage.addEventListener("load", function() {
             try {
                 lastPageUrl = flowerPage.contentWindow.location.href;
@@ -302,28 +501,20 @@
                 lastPageUrl = "";
             }
 
-            updateWrapperVisibility();
-
-            // Measure after the page has rendered.
-            requestAnimationFrame(function() {
-                resizeFlowerPage();
-
-                setTimeout(resizeFlowerPage, 300);
-                setTimeout(resizeFlowerPage, 800);
-                setTimeout(resizeFlowerPage, 1500);
-            });
+            observeEmbeddedPage();
         });
 
-        // Check navigation changes without resizing on every interval.
+        /*
+         * Detect URL changes without forcing the iframe to a
+         * fixed height or resetting the user's scroll position.
+         */
         setInterval(function() {
             try {
                 const currentUrl = flowerPage.contentWindow.location.href;
 
                 if (currentUrl !== lastPageUrl) {
                     lastPageUrl = currentUrl;
-
-                    resizeFlowerPage();
-                    updateWrapperVisibility();
+                    observeEmbeddedPage();
                 } else {
                     updateWrapperVisibility();
                 }
@@ -332,7 +523,9 @@
             }
         }, 500);
 
-        // Shop by Occasion.
+        /*
+         * Shop by Occasion: load the search page at the top.
+         */
         document.getElementById("occasionLink")
             .addEventListener("click", function(event) {
                 event.preventDefault();
@@ -345,7 +538,9 @@
                 });
             });
 
-        // Explore Flowers.
+        /*
+         * Explore Flowers: load the categories page at the top.
+         */
         document.getElementById("categoriesLink")
             .addEventListener("click", function(event) {
                 event.preventDefault();
@@ -357,6 +552,7 @@
                     behavior: "smooth"
                 });
             });
+
     </script>
 
 </body>
