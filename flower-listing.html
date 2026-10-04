@@ -67,9 +67,9 @@
     }
 
     .logo-placeholder {
-      width: 150px;
-      height: 42px;
-      border: 1px dashed var(--pink-blush);
+      width: 270px;
+      height: 85px;
+      border: none;
       border-radius: 8px;
       display: flex;
       align-items: center;
@@ -360,16 +360,16 @@
 
   <header class="header-bar">
     <nav class="navbar">
-      <img src="logoo.png.png" class="logo-container" style="text-decoration: none;">
-        <div class="logo-placeholder">BloomSense</div>
+      <a href="categories.html" class="logo-container" style="text-decoration: none;">
+        <img src="logoo.png.png" alt="BloomSense Logo" class="logo-placeholder" style="object-fit: contain;">
       </a>
 
       <div class="nav-right-group">
         <ul class="nav-links">
-          <li><a href="home.html">Home</a></li>
-          <li><a href="birthflower.html">Birth Flower</a></li>
-          <li><a href="about.html">About BloomSense</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="categories.html">Home</a></li>
+          <li><a href="#">Birth Flower</a></li>
+          <li><a href="#">About BloomSense</a></li>
+          <li><a href="#">Contact</a></li>
         </ul>
         <a href="#" class="cart-btn-circle" aria-label="Shopping Cart">
           <i class="fa-solid fa-cart-shopping"></i>
@@ -597,6 +597,7 @@
       document.getElementById('category-heading').innerText = category + ' Collection';
     }
   </script>
+
 
 </body>
 </html>
